@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sanctionsData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ENHANCED_XML">
+  <publicationInfo>
+    <dataAsOf>2026-08-26T22:23:15.6096556-04:00</dataAsOf>
+    <filters />
+  </publicationInfo>
+  <referenceValues>
+    <referenceValue refId="1400">
+      <type>ALIAS TYPE</type>
+      <value>A.K.A.</value>
+    </referenceValue>
+  </referenceValues>
+  <entities>
+    <entity id="30629">
+      <generalInfo>
+        <identityId>22313</identityId>
+        <entityType refId="601">Individual</entityType>
+      </generalInfo>
+      <sanctionsLists>
+        <sanctionsList refId="1550" id="31269" datePublished="2020-12-21">SDN List</sanctionsList>
+      </sanctionsLists>
+      <sanctionsPrograms>
+        <sanctionsProgram refId="202" id="33166">CUBA</sanctionsProgram>
+      </sanctionsPrograms>
+      <sanctionsTypes>
+        <sanctionsType refId="1705" id="22787">Block</sanctionsType>
+      </sanctionsTypes>
+      <legalAuthorities>
+        <legalAuthority refId="91707" id="19621">Cuban Assets Control Regulations (CACR)</legalAuthority>
+      </legalAuthorities>
+      <names>
+        <name id="48173">
+          <isPrimary>true</isPrimary>
+          <isLowQuality>false</isLowQuality>
+          <translations>
+            <translation id="42433">
+              <isPrimary>true</isPrimary>
+              <script refId="20122">Latin</script>
+              <formattedLastName>AL-SAMAHI</formattedLastName>
+              <formattedFullName>AL-SAMAHI, Alaa</formattedFullName>
+            </translation>
+          </translations>
+        </name>
+      </names>
+      <addresses>
+        <address id="46835">
+          <country refId="11205">Turkey</country>
+        </address>
+        <address id="46836">
+          <country refId="11205">Turkey</country>
+        </address>
+      </addresses>
+    </entity>
+    <entity id="30630">
+      <generalInfo>
+        <identityId>22314</identityId>
+        <entityType refId="600">Entity</entityType>
+      </generalInfo>
+      <sanctionsLists>
+        <sanctionsList refId="1550" id="31270" datePublished="2021-01-15">SDN List</sanctionsList>
+      </sanctionsLists>
+      <sanctionsPrograms>
+        <sanctionsProgram refId="202" id="33167">CUBA</sanctionsProgram>
+      </sanctionsPrograms>
+      <sanctionsTypes>
+        <sanctionsType refId="1705" id="22788">Block</sanctionsType>
+      </sanctionsTypes>
+      <names>
+        <name id="48174">
+          <isPrimary>true</isPrimary>
+          <translations>
+            <translation id="42434">
+              <isPrimary>true</isPrimary>
+              <script refId="20122">Latin</script>
+              <formattedLastName>KAVE COFFEE S.A.</formattedLastName>
+              <formattedFullName>KAVE COFFEE S.A.</formattedFullName>
+            </translation>
+          </translations>
+        </name>
+      </names>
+      <addresses>
+        <address id="46837">
+          <country refId="11205">Turkey</country>
+        </address>
+      </addresses>
+    </entity>
+  </entities>
+</sanctionsData>

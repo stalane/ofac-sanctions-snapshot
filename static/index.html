@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OFAC Sanctions Snapshot</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>OFAC Sanctions Snapshot</h1>
+      <p class="subtitle">Consolidated Sanctions List Service &mdash; country exposure</p>
+    </div>
+    <div class="header-right">
+      <span id="status" class="status">connecting&hellip;</span>
+      <span class="asof-label">as of <span id="asof" class="mono">&mdash;</span></span>
+      <button id="refresh" class="btn">Refresh</button>
+    </div>
+  </header>
+
+  <div id="loading-banner" class="loading-banner hidden">
+    <div class="skeleton"></div>
+    <p class="loading-text">Fetching consolidated OFAC data (~1&ndash;2 min) &mdash; this happens once on first run.</p>
+  </div>
+
+  <section class="kpi-strip">
+    <div class="kpi">
+      <div class="kpi-label">Entities</div>
+      <div class="kpi-value" id="kpi-entities">&mdash;</div>
+      <div class="kpi-delta" id="kpi-entities-delta"></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Countries</div>
+      <div class="kpi-value" id="kpi-countries">&mdash;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Programs</div>
+      <div class="kpi-value" id="kpi-programs">&mdash;</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Lists</div>
+      <div class="kpi-value" id="kpi-lists">&mdash;</div>
+    </div>
+  </section>
+
+  <section class="panel country-panel" id="panel-country" data-state="loading">
+    <div class="panel-head">
+      <h2>Country snapshot</h2>
+      <select id="country-select" aria-label="Select a country"></select>
+      <span class="panel-asof"></span>
+    </div>
+    <div class="skeleton"></div>
+    <div id="country-content" class="hidden">
+      <div class="sub-kpi-strip">
+        <div class="kpi small">
+          <div class="kpi-label">Entities</div>
+          <div class="kpi-value" id="c-entities">&mdash;</div>
+        </div>
+        <div class="kpi small">
+          <div class="kpi-label">Individuals</div>
+          <div class="kpi-value" id="c-individuals">&mdash;</div>
+        </div>
+        <div class="kpi small">
+          <div class="kpi-label">Organizations</div>
+          <div class="kpi-value" id="c-organizations">&mdash;</div>
+        </div>
+        <div class="kpi small">
+          <div class="kpi-label">Vessels</div>
+          <div class="kpi-value" id="c-vessels">&mdash;</div>
+        </div>
+      </div>
+      <div class="chart-row">
+        <div class="panel sub">
+          <div class="panel-head"><h2>Entity types</h2></div>
+          <div class="chart-wrap"><canvas id="chart-types"></canvas></div>
+        </div>
+        <div class="panel sub">
+          <div class="panel-head"><h2>Top programs</h2></div>
+          <div class="chart-wrap"><canvas id="chart-programs"></canvas></div>
+        </div>
+        <div class="panel sub">
+          <div class="panel-head"><h2>List membership</h2></div>
+          <div class="chart-wrap"><canvas id="chart-countryLists"></canvas></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <h3>Notable entities</h3>
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Type</th><th>Programs</th><th>Lists</th></tr>
+          </thead>
+          <tbody id="country-table"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="error-state">
+      <p>Failed to load country snapshot.</p>
+      <button class="btn retry" data-target="country">Retry</button>
+    </div>
+  </section>
+
+  <section class="panel-grid">
+    <div class="panel" id="panel-topCountries" data-state="loading">
+      <div class="panel-head">
+        <h2>Top countries by sanctioned entities</h2>
+        <span class="panel-asof"></span>
+      </div>
+      <div class="skeleton"></div>
+      <div class="chart-wrap"><canvas id="chart-topCountries"></canvas></div>
+      <div class="error-state">
+        <p>Failed to load country totals.</p>
+        <button class="btn retry" data-target="topCountries">Retry</button>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-lists" data-state="loading">
+      <div class="panel-head">
+        <h2>Sanctions list distribution</h2>
+        <span class="panel-asof"></span>
+      </div>
+      <div class="skeleton"></div>
+      <div class="chart-wrap"><canvas id="chart-lists"></canvas></div>
+      <div class="error-state">
+        <p>Failed to load list distribution.</p>
+        <button class="btn retry" data-target="lists">Retry</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="/static/countrymatch.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
