@@ -39,6 +39,14 @@ def test_programs_and_lists(tmp_path):
     assert c.get("/api/lists").get_json()["data"][0]["list_name"] == "SDN List"
 
 
+def test_progress_endpoint(tmp_path):
+    c = _seed(tmp_path)
+    r = c.get("/api/progress")
+    assert r.status_code == 200
+    body = r.get_json()
+    assert {"phase", "bytes", "total_bytes", "entities"}.issubset(body.keys())
+
+
 def test_refresh_single_flight(tmp_path):
     dbf = str(tmp_path / "o.db")
     parse_xml("tests/fixtures/sample.xml", dbf)

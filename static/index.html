@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OFAC Sanctions Snapshot</title>
+<link rel="icon" href="/static/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+<link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+<link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#000000">
 <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -19,11 +26,6 @@
       <button id="refresh" class="btn">Refresh</button>
     </div>
   </header>
-
-  <div id="loading-banner" class="loading-banner hidden">
-    <div class="skeleton"></div>
-    <p class="loading-text">Fetching consolidated OFAC data (~1&ndash;2 min) &mdash; this happens once on first run.</p>
-  </div>
 
   <section class="kpi-strip">
     <div class="kpi">
@@ -128,6 +130,14 @@
       </div>
     </div>
   </section>
+</div>
+
+<div id="progress-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Fetching data">
+  <div class="modal-box">
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <p class="modal-text" id="modal-status">Grabbing fresh data.. Please wait.</p>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>

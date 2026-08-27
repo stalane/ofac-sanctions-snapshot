@@ -1,6 +1,7 @@
 import os
 import subprocess
 import tempfile
+import time
 import xml.etree.ElementTree as ET
 
 import db
@@ -47,10 +48,12 @@ def _extract_primary_name(el):
     return fallback
 
 
-def parse_xml(xml_path, db_path):
+def parse_xml(xml_path, db_path, progress=None):
     entities, countries, programs, lists, s_types = [], [], [], [], []
     data_as_of = ""
     seen_countries = set()
+    if progress is not None:
+        progress["phase"] = "parsing"
 
     for event, el in ET.iterparse(xml_path, events=("end",)):
         name = _local(el.tag)
@@ -85,22 +88,29 @@ def parse_xml(xml_path, db_path):
             for s_type in _children(types_el, "sanctionsType"):
                 s_types.append((eid, (s_type.text or "").strip()))
 
+        if progress is not None:
+            progress["entities"] += 1
+
         el.clear()
 
     conn = db.connect(db_path)
-    db.init_db(conn)
-    for table, rows in (
-        ("entities", entities),
-        ("countries", countries),
-        ("programs", programs),
-        ("lists", lists),
-        ("sanctions_types", s_types),
-    ):
-        db.load_rows(conn, table, rows)
-    if data_as_of:
-        db.set_meta(conn, "data_as_of", data_as_of)
-    conn.commit()
-    conn.close()
+    try:
+        db.init_db(conn)
+        for table in ("entities", "countries", "programs", "lists", "sanctions_types"):
+            conn.execute(f"DELETE FROM {table}")
+        for table, rows in (
+            ("entities", entities),
+            ("countries", countries),
+            ("programs", programs),
+            ("lists", lists),
+            ("sanctions_types", s_types),
+        ):
+            db.load_rows(conn, table, rows)
+        if data_as_of:
+            db.set_meta(conn, "data_as_of", data_as_of)
+        conn.commit()
+    finally:
+        conn.close()
 
     return {
         "entities": len(entities),
@@ -111,22 +121,54 @@ def parse_xml(xml_path, db_path):
     }
 
 
-def download(url, dest):
+def _content_length(url):
     try:
-        subprocess.run(
-            ["curl", "-sL", "--max-time", "600", "-o", dest, url],
-            check=True,
+        proc = subprocess.run(
+            ["curl", "-sIL", "-o", "/dev/null", "-D", "-", url],
+            capture_output=True,
+            text=True,
+            timeout=60,
         )
-    except subprocess.CalledProcessError as exc:
-        raise RuntimeError("OFAC download failed") from exc
+    except (subprocess.SubprocessError, OSError):
+        return None
+    length = None
+    for line in proc.stdout.splitlines():
+        if line.lower().startswith("content-length:"):
+            try:
+                length = int(line.split(":", 1)[1].strip())
+            except ValueError:
+                pass
+    return length
+
+
+def download(url, dest, progress=None):
+    if progress is not None:
+        progress["total_bytes"] = _content_length(url)
+    proc = subprocess.Popen(["curl", "-sL", "--max-time", "600", "-o", dest, url])
+    while proc.poll() is None:
+        if progress is not None:
+            try:
+                progress["bytes"] = os.path.getsize(dest)
+            except OSError:
+                pass
+        time.sleep(0.2)
+    if proc.returncode != 0:
+        raise RuntimeError("OFAC download failed")
+    if progress is not None:
+        progress["bytes"] = os.path.getsize(dest)
     return dest
 
 
-def load_data(db_path):
+def load_data(db_path, progress=None):
     tmp = tempfile.NamedTemporaryFile(suffix=".xml", delete=False)
     tmp.close()
     try:
-        download(OFAC_ENTITIES_URL, tmp.name)
-        return parse_xml(tmp.name, db_path)
+        if progress is not None:
+            progress.update(phase="downloading", bytes=0, total_bytes=None, entities=0)
+        download(OFAC_ENTITIES_URL, tmp.name, progress)
+        result = parse_xml(tmp.name, db_path, progress)
+        if progress is not None:
+            progress["phase"] = "done"
+        return result
     finally:
         os.unlink(tmp.name)

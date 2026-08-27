@@ -2,7 +2,7 @@ import os
 import sqlite3
 import threading
 
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, redirect, send_from_directory, url_for
 
 import db
 import fetch
@@ -13,6 +13,7 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 _fetch_lock = threading.Lock()
 _refreshing = False
+PROGRESS = {"phase": "idle", "bytes": 0, "total_bytes": None, "entities": 0}
 
 
 def _db_state(db_path):
@@ -53,7 +54,15 @@ def create_app(db_path=DB_PATH):
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 
     def _fetch_impl():
-        return app.config.get("FETCH_FUNC", fetch.load_data)
+        fn = app.config.get("FETCH_FUNC", None)
+        if fn is not None:
+            return fn
+
+        def run(p):
+            PROGRESS.update(phase="downloading", bytes=0, total_bytes=None, entities=0)
+            return fetch.load_data(p, PROGRESS)
+
+        return run
 
     def _maybe_spawn():
         if _db_state(db_path):
@@ -64,6 +73,18 @@ def create_app(db_path=DB_PATH):
     @app.get("/")
     def index():
         return send_from_directory(STATIC_DIR, "index.html")
+
+    @app.get("/favicon.ico")
+    def favicon():
+        return redirect(url_for("static", filename="favicon.ico"))
+
+    @app.get("/robots.txt")
+    def robots():
+        return send_from_directory(STATIC_DIR, "robots.txt")
+
+    @app.get("/manifest.json")
+    def manifest():
+        return send_from_directory(STATIC_DIR, "manifest.json")
 
     @app.get("/api/meta")
     def meta():
@@ -95,6 +116,10 @@ def create_app(db_path=DB_PATH):
             )
         finally:
             conn.close()
+
+    @app.get("/api/progress")
+    def progress():
+        return jsonify(PROGRESS)
 
     @app.get("/api/countries")
     def countries():

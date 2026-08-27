@@ -42,7 +42,7 @@ tests/        pytest (Python) + node:test (JS) suites, plus a small XML fixture
 
 **Data flow:** `app.py` → on first run (or Refresh), `fetch.py` downloads the
 full consolidated list from `https://sanctionslistservice.ofac.treas.gov/entities`
-(~30 MB XML, takes 1–2 minutes) and streams it into SQLite with
+(~100 MB XML, takes 1–2 minutes) and streams it into SQLite with
 `xml.etree.iterparse` (memory-safe). All API endpoints then answer from the
 SQLite cache, so page loads are instant.
 
@@ -103,8 +103,12 @@ countries.
 
 OFAC updates the list frequently. Click **Refresh** in the header — or
 `curl -X POST http://127.0.0.1:8080/api/refresh` — to re-download the latest
-consolidated list in the background. The UI shows a "refreshing data…" state and
-re-renders once the new data (with a new as-of date) is available.
+consolidated list in the background. A progress modal appears while it runs,
+showing a live **progress bar** plus a byte counter in MB during the download
+("Downloading… 12.0 of 100.0 MB") and an entity count while parsing
+("Parsing… 15,000 entities"). It disappears once the data is live and the
+dashboard re-renders with the new as-of date. The same modal is shown on the
+very first fetch.
 
 ## Testing
 
@@ -127,7 +131,7 @@ python3 -m pytest tests/ -q && node --test tests/countrymatch.test.js
   publications for compliance decisions.
 - **Consolidated list:** the dashboard ingests the full consolidated dataset
   (SDN + Non-SDN lists together).
-- **Refresh is a full re-download** (~30 MB, 1–2 min). Incremental delta pulls
+- **Refresh is a full re-download** (~100 MB, 1–2 min). Incremental delta pulls
   via `/changes/latest` are a possible future improvement.
 - **Static files are served with `Cache-Control: no-cache`** so the dashboard
   always runs the latest frontend code after an update.

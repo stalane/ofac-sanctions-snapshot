@@ -21,6 +21,7 @@
   var charts = {};
   var asOf = null;
   var pollTimer = null;
+  var progressTimer = null;
   var geoSettled = false;
   var userPicked = false;
 
@@ -372,19 +373,23 @@
   function ensureReady() {
     fetchJSON('/api/meta').then(function (m) {
       if (!m.ready) {
-        $('loading-banner').classList.remove('hidden');
+        showProgress();
+        startProgressPoll();
         setStatus('', 'fetching data…');
         pollTimer = setTimeout(ensureReady, 5000);
         return;
       }
-      $('loading-banner').classList.add('hidden');
       renderMeta(m);
       asOf = m.data_as_of;
       if (m.refreshing) {
+        showProgress();
+        startProgressPoll();
         setStatus('refreshing', 'refreshing data…');
-        pollTimer = setTimeout(function () { waitForRefresh(asOf); }, 4000);
+        pollTimer = setTimeout(waitForRefresh, 4000);
         return;
       }
+      stopProgressPoll();
+      hideProgress();
       setStatus('live', 'live');
       renderDashboard();
       if (!geoSettled) {
@@ -397,20 +402,70 @@
     });
   }
 
-  function waitForRefresh(prevAsOf) {
+  function showProgress() {
+    $('progress-modal').classList.remove('hidden');
+  }
+
+  function hideProgress() {
+    $('progress-modal').classList.add('hidden');
+  }
+
+  function renderProgress(p) {
+    var fill = $('progress-fill');
+    var status = $('modal-status');
+    if (!fill || !status) return;
+    if (p.phase === 'downloading') {
+      var mb = p.bytes / 1048576;
+      if (p.total_bytes) {
+        var pct = Math.min(100, (p.bytes / p.total_bytes) * 100);
+        fill.classList.remove('indeterminate');
+        fill.style.width = pct.toFixed(1) + '%';
+        status.textContent = 'Downloading… ' + mb.toFixed(1) + ' of ' +
+          (p.total_bytes / 1048576).toFixed(1) + ' MB';
+      } else {
+        fill.classList.add('indeterminate');
+        status.textContent = 'Downloading… ' + mb.toFixed(1) + ' MB';
+      }
+    } else if (p.phase === 'parsing') {
+      fill.classList.remove('indeterminate');
+      fill.style.width = '100%';
+      status.textContent = 'Parsing… ' + fmt(p.entities || 0) + ' entities';
+    }
+  }
+
+  function pollProgress() {
+    fetchJSON('/api/progress').then(renderProgress).catch(function () {});
+  }
+
+  function startProgressPoll() {
+    stopProgressPoll();
+    pollProgress();
+    progressTimer = setInterval(pollProgress, 1000);
+  }
+
+  function stopProgressPoll() {
+    if (progressTimer) {
+      clearInterval(progressTimer);
+      progressTimer = null;
+    }
+  }
+
+  function waitForRefresh() {
     fetchJSON('/api/meta').then(function (m) {
-      if (!m.ready || m.refreshing || m.data_as_of === prevAsOf) {
+      if (!m.ready || m.refreshing) {
         setStatus('refreshing', 'refreshing data…');
-        pollTimer = setTimeout(function () { waitForRefresh(prevAsOf); }, 4000);
+        pollTimer = setTimeout(waitForRefresh, 4000);
         return;
       }
+      stopProgressPoll();
+      hideProgress();
       renderMeta(m);
       asOf = m.data_as_of;
       setStatus('live', 'live');
       $('refresh').disabled = false;
       renderDashboard();
     }).catch(function () {
-      pollTimer = setTimeout(function () { waitForRefresh(prevAsOf); }, 4000);
+      pollTimer = setTimeout(waitForRefresh, 4000);
     });
   }
 
@@ -418,9 +473,13 @@
     if (pollTimer) clearTimeout(pollTimer);
     $('refresh').disabled = true;
     setStatus('refreshing', 'refreshing data…');
+    showProgress();
+    startProgressPoll();
     fetch('/api/refresh', { method: 'POST' }).then(function () {
-      waitForRefresh(asOf);
+      waitForRefresh();
     }).catch(function () {
+      stopProgressPoll();
+      hideProgress();
       setStatus('offline', 'refresh failed');
       $('refresh').disabled = false;
     });

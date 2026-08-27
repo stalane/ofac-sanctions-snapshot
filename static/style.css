@@ -87,25 +87,6 @@ header h1 {
 .btn:hover { filter: brightness(1.08); }
 .btn:disabled { opacity: 0.5; cursor: default; }
 
-/* ---------- Loading banner ---------- */
-.loading-banner {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--glow);
-  padding: 24px;
-  margin-bottom: 20px;
-}
-
-.loading-banner .skeleton { height: 64px; min-height: 64px; }
-
-.loading-text {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 12px;
-  text-align: center;
-}
-
 /* ---------- KPI strip ---------- */
 .kpi-strip {
   display: grid;
@@ -265,6 +246,75 @@ header h1 {
 }
 
 .error-state .btn { margin-top: 12px; }
+
+/* ---------- Progress modal ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--glow);
+  padding: 32px 44px;
+  text-align: center;
+  min-width: 300px;
+}
+
+.modal-text {
+  color: var(--text);
+  font-size: 15px;
+  margin-top: 18px;
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
+  border: 3px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.progress-track {
+  height: 8px;
+  border-radius: 4px;
+  background: #0b111c;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--blue);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.indeterminate {
+  width: 40%;
+  animation: slide 1.2s ease-in-out infinite;
+}
+
+@keyframes slide {
+  0% { margin-left: 0; }
+  100% { margin-left: 60%; }
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
