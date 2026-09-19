@@ -24,19 +24,42 @@ wrangler deploy --config worker/wrangler.jsonc
 Custom domain `ofac.stalane.com` is attached via
 `PUT /accounts/{id}/workers/domains` (not in wrangler.jsonc).
 
-## Data refresh (no live refresh in the Worker)
+## Data refresh (two UTC days — free-tier write cap)
 
-`/api/refresh` is a no-op; `/api/progress` always reports idle. Reseed D1
-from the snapshot (skips `sanctions_types` — unused by any endpoint —
-to stay under the 100k/day free write cap):
+`/api/refresh` is a no-op; `/api/progress` always reports idle. Fresh data
+arrives via `.github/workflows/reseed.yml` (Wed 01:00 UTC part 1, Thu 01:00
+UTC part 2 — OFAC usually updates Mon/Tue):
+
+1. `scripts/build_seed.py` downloads the snapshot and splits it into
+   `schema.sql` + `part1.sql` (entities, countries, ~55k writes) +
+   `part2.sql` (programs, lists, meta, ~88k writes). It aborts if either
+   part exceeds the 95k budget — a full single-day reseed needs ~143k
+   writes and trips the 100k/day free cap.
+2. Part 1 creates a fresh `ofac-YYYYMMDD` database and seeds schema + part 1.
+3. Part 2 seeds part 2, verifies row counts against `counts.json`, then
+   `scripts/swap_db.py` rebinds the worker, deploys, smoke-tests
+   production, records `{current, previous}` in `worker/dbs.json`, and
+   prunes older `ofac-*` databases (keeps two for rollback).
+
+The live database is never written in place. Rollback: put the previous
+id back in `wrangler.jsonc` and redeploy.
+
+Manual reseed (same procedure, same order — never combine the parts into
+one day):
 
 ```bash
-sqlite3 data/ofac.db .dump \
-  | grep -v sanctions_types \
-  | grep -v -e '^PRAGMA' -e '^BEGIN TRANSACTION;' -e '^COMMIT;' \
-  | grep '^INSERT' > /tmp/ofac-seed.sql
-wrangler d1 execute ofac --remote --file=/tmp/ofac-seed.sql
+python3 scripts/build_seed.py seed
+DB=ofac-$(date -u +%Y%m%d)
+wrangler d1 delete "$DB" -y || true
+wrangler d1 create "$DB"
+wrangler d1 execute "$DB" --remote --file=seed/schema.sql
+wrangler d1 execute "$DB" --remote --file=seed/part1.sql
+# --- next UTC day ---
+wrangler d1 execute "$DB" --remote --file=seed/part2.sql
+STAMP=$(date -u -d 'last wednesday' +%Y%m%d) python3 scripts/swap_db.py
 ```
+
+Needs `CLOUDFLARE_API_TOKEN` (Account D1 edit + Workers Scripts edit).
 
 ## Rollback
 
