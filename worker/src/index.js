@@ -3,6 +3,24 @@
  * Refresh is handled by an external pipeline, so /api/refresh is a no-op
  * and /api/progress always reports idle — the frontend tolerates both. */
 
+/* OFAC Sanctions Snapshot API — Cloudflare Worker + D1 port of app.py/db.py.
+ * Read-only: data is seeded from the SQLite snapshot (see seed notes).
+ * Refresh is handled by an external pipeline, so /api/refresh is a no-op
+ * and /api/progress always reports idle — the frontend tolerates both.
+ *
+ * Edge caching: snapshot data changes weekly at most, but the D1 free
+ * tier caps reads at 5M rows/day (full-table aggregations scan tens of
+ * thousands of rows per call). GET /api/* responses are cached at the
+ * edge so steady state costs ~zero D1 reads. TTLs are short for /api/meta
+ * (readiness signal) and long for the rest. */
+
+function cacheTtl(path) {
+  if (path === "/api/meta") return 60;
+  if (path === "/api/countries" || path === "/api/programs" || path === "/api/lists") return 21600;
+  if (path.startsWith("/api/country/")) return 21600;
+  return 0;
+}
+
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -111,24 +129,29 @@ async function handleLists(db) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
     const db = env.DB;
 
-    if (path === "/api/meta") return handleMeta(db);
-    if (path === "/api/progress") {
-      return json({ phase: "idle", bytes: 0, total_bytes: null, entities: 0 });
+    // Edge-cache GET /api/* (snapshot data changes weekly; D1 free reads
+    // are capped). Only 200s are stored; errors always hit D1 fresh so a
+    // capped backend surfaces instead of serving stale errors.
+    if (request.method === "GET") {
+      const ttl = cacheTtl(path);
+      if (ttl > 0) {
+        const cache = caches.default;
+        const hit = await cache.match(request);
+        if (hit) return hit;
+        const res = await routeApi(db, path, request);
+        if (res && res.status === 200) {
+          ctx.waitUntil(cache.put(request, res.clone()));
+        }
+        return res;
+      }
     }
-    if (path === "/api/countries") return handleCountries(db);
-    if (path.startsWith("/api/country/")) {
-      return handleCountry(db, path.slice("/api/country/".length));
-    }
-    if (path === "/api/programs") return handlePrograms(db);
-    if (path === "/api/lists") return handleLists(db);
-    if (path === "/api/refresh" && request.method === "POST") {
-      return json({ refreshing: false, note: "data refreshes via scheduled pipeline" });
-    }
+    const routed = await routeApi(db, path, request);
+    if (routed) return routed;
 
     // Parity redirects from the Flask app (assets live under /static/).
     if (path === "/favicon.ico") return Response.redirect("/static/favicon.ico", 302);
@@ -139,3 +162,31 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+async function routeApi(db, path, request) {
+  const ttl = cacheTtl(path);
+  if (path === "/api/meta") return withTtl(handleMeta(db), ttl);
+  if (path === "/api/progress") {
+    return json({ phase: "idle", bytes: 0, total_bytes: null, entities: 0 });
+  }
+  if (path === "/api/countries") return withTtl(handleCountries(db), ttl);
+  if (path.startsWith("/api/country/")) {
+    return withTtl(handleCountry(db, path.slice("/api/country/".length)), ttl);
+  }
+  if (path === "/api/programs") return withTtl(handlePrograms(db), ttl);
+  if (path === "/api/lists") return withTtl(handleLists(db), ttl);
+  if (path === "/api/refresh" && request.method === "POST") {
+    return json({ refreshing: false, note: "data refreshes via scheduled pipeline" });
+  }
+  return null;
+}
+
+async function withTtl(promise, ttl) {
+  const res = await promise;
+  if (ttl > 0 && res.status === 200) {
+    const headers = new Headers(res.headers);
+    headers.set("cache-control", `public, s-maxage=${ttl}`);
+    return new Response(res.body, { status: res.status, headers });
+  }
+  return res;
+}
