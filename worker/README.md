@@ -54,8 +54,8 @@ wrangler d1 delete "$DB" -y || true
 wrangler d1 create "$DB"
 wrangler d1 execute "$DB" --remote --file=seed/schema.sql
 wrangler d1 execute "$DB" --remote --file=seed/part1.sql
-# --- next UTC day ---
-wrangler d1 execute "$DB" --remote --file=seed/part2.sql
+# --- next UTC day (enforced: apply_part2.py aborts same-day) ---
+python3 scripts/apply_part2.py "$DB" seed
 STAMP=$(date -u -d 'last wednesday' +%Y%m%d) python3 scripts/swap_db.py
 ```
 
@@ -63,5 +63,7 @@ Needs `CLOUDFLARE_API_TOKEN` (Account D1 edit + Workers Scripts edit).
 
 ## Rollback
 
-Box services removed 2026-09-19 (`ofac-app`, `ofac-tunnel`, tunnel deleted).
-To go back: restore Flask on `:8787`, recreate tunnel + DNS CNAME.
+Box services currently live again (`ofac-app` + `ofac-tunnel` systemd units,
+Flask on `:8787`) — the 2026-09-19 removal was reversed by re-migrating to
+the robust setup. To go back to tunnel-only serving: stop `ofac-app`,
+recreate tunnel + DNS CNAME if deleted.

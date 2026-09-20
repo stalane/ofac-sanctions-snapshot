@@ -61,6 +61,7 @@ jobs:
           path: |
             seed/part2.sql
             seed/counts.json
+            seed/part1.date
 
   part2:
     if: github.event.schedule == '0 1 * * 4' || (github.event_name == 'workflow_dispatch' && github.event.inputs.stamp != '')
@@ -83,11 +84,10 @@ jobs:
         with:
           name: seed-${{ steps.stamp.outputs.stamp }}
           path: seed
-      - name: Seed part 2
+      - name: Seed part 2 (day-separated guard)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          wrangler d1 execute "ofac-${{ steps.stamp.outputs.stamp }}" --remote --file=seed/part2.sql
+        run: python3 scripts/apply_part2.py "ofac-${{ steps.stamp.outputs.stamp }}" seed
       - name: Verify, swap binding, deploy, record, prune
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

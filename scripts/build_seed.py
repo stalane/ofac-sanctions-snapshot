@@ -5,6 +5,8 @@ Runs fetch.load_data() into a local snapshot, then emits:
   part1.sql   - INSERTs for entities + countries   (Wednesday)
   part2.sql   - INSERTs for programs + lists + meta (Thursday)
   counts.json - per-table row counts for post-seed verification
+  part1.date  - UTC date part 1 was emitted; apply_part2.py refuses to run
+                part 2 on the same UTC day (D1 free-tier write cap)
 
 Why split: D1 free tier allows 100k rows written/day, and every secondary
 index entry counts as a write. entities has no secondary index; countries,
@@ -105,6 +107,10 @@ def main(out_dir):
             fh2.close()
     finally:
         conn.close()
+    from datetime import datetime, timezone
+
+    with open(os.path.join(out_dir, "part1.date"), "w") as f:
+        f.write(datetime.now(timezone.utc).strftime("%Y-%m-%d") + "\n")
     print("seed files written to", out_dir, flush=True)
 
 
