@@ -66,6 +66,9 @@ jobs:
   part2:
     if: github.event.schedule == '0 1 * * 4' || (github.event_name == 'workflow_dispatch' && github.event.inputs.stamp != '')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -80,10 +83,28 @@ jobs:
           else
             echo "stamp=$(date -u -d 'last wednesday' +%Y%m%d)" >> "$GITHUB_OUTPUT"
           fi
+      - name: Find part1 run holding the seed artifact
+        id: part1run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          STAMP="${{ steps.stamp.outputs.stamp }}"
+          RUN_ID=$(gh api "repos/${{ github.repository }}/actions/artifacts?name=seed-${STAMP}" \
+            --paginate -q '[.artifacts[] | select(.expired == false)] | sort_by(.created_at) | last | .workflow_run.id // empty')
+          if [ -z "$RUN_ID" ]; then
+            echo "No non-expired artifact found for seed-${STAMP}; listing candidates:"
+            gh api "repos/${{ github.repository }}/actions/artifacts?name=seed-${STAMP}" \
+              --paginate -q '.artifacts[] | "\(.name) run=\(.workflow_run.id) expired=\(.expired) created=\(.created_at)"' || true
+            exit 1
+          fi
+          echo "Using seed-${STAMP} from run ${RUN_ID}"
+          echo "run_id=${RUN_ID}" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v8
         with:
           name: seed-${{ steps.stamp.outputs.stamp }}
           path: seed
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.part1run.outputs.run_id }}
       - name: Seed part 2 (day-separated guard)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
