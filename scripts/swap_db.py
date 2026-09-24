@@ -78,11 +78,13 @@ def main():
     print("worker deployed", flush=True)
 
     meta = None
+    req = urllib.request.Request(
+        "https://ofac.stalane.com/api/meta",
+        headers={"User-Agent": "Mozilla/5.0 (reseed-smoke-check)"},
+    )
     for _ in range(12):
         try:
-            with urllib.request.urlopen(
-                "https://ofac.stalane.com/api/meta", timeout=20
-            ) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
                 meta = json.load(r)
             break
         except Exception as e:  # noqa: BLE001 - transient edge propagation
