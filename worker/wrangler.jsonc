@@ -2,11 +2,12 @@
   "name": "ofac",
   "main": "src/index.js",
   "compatibility_date": "2026-09-01",
-  "assets": { "directory": "./public" },
+  "observability": { "enabled": true },
+  "assets": { "directory": "./public", "binding": "ASSETS" },
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "ofac",
+      "database_name": "ofac-20260930",
       "database_id": "eb6dc62b-1e3c-422d-919e-d25467d8039e"
     }
   ]

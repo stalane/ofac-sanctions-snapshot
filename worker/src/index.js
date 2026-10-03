@@ -66,7 +66,12 @@ async function handleCountries(db) {
 const DEDUP = "(SELECT DISTINCT entity_id FROM countries WHERE country = ?)";
 
 async function handleCountry(db, name) {
-  const country = decodeURIComponent(name);
+  let country;
+  try {
+    country = decodeURIComponent(name);
+  } catch {
+    return json({ error: "bad country encoding" }, 400);
+  }
   const [types, programs, lists, entities] = await Promise.all([
     db.prepare(`
       SELECT e.entity_type, COUNT(*) AS count
@@ -159,7 +164,13 @@ export default {
     if (path === "/manifest.json") return Response.redirect("/static/manifest.json", 302);
 
     // Anything else (/, /static/*) falls through to Static Assets.
-    return env.ASSETS.fetch(request);
+    // Guarded: without an assets binding env.ASSETS is undefined and every
+    // missing-asset path would throw (HTTP 500) instead of 404.
+    if (env.ASSETS) return env.ASSETS.fetch(request);
+    return new Response("Not found", {
+      status: 404,
+      headers: { "content-type": "text/plain; charset=utf-8" },
+    });
   },
 };
 
