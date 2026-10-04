@@ -72,6 +72,12 @@ async function handleCountry(db, name) {
   } catch {
     return json({ error: "bad country encoding" }, 400);
   }
+  // Cheap existence check first (uses idx_countries_country, ~1 row): unknown
+  // names must 404 here, not after the multi-million-row aggregations below.
+  const known = await db.prepare("SELECT 1 FROM countries WHERE country = ? LIMIT 1").bind(country).first();
+  if (!known) {
+    return json({ error: "country not found" }, 404);
+  }
   const [types, programs, lists, entities] = await Promise.all([
     db.prepare(`
       SELECT e.entity_type, COUNT(*) AS count
