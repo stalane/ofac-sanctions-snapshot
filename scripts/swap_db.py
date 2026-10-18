@@ -22,6 +22,9 @@ import sys
 import time
 import urllib.request
 
+# wrangler --json prints {"error": {...}} to stdout, sometimes with exit 0.
+_JSON_ERROR = re.compile(r'"error"\s*:\s*\{')
+
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # The pre-stamping database name. Never referenced by dbs.json, so it would
@@ -29,10 +32,29 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEGACY_DB = "ofac"
 
 
+def failure_message(args, returncode, stdout, stderr, hint=None):
+    """Build the message for a failed subprocess.
+
+    wrangler's --json mode prints errors to stdout and can exit 0, so stderr
+    alone is not enough: a failure reporting only the command line tells you
+    nothing about why.
+    """
+    parts = [f"{' '.join(args)} failed (exit {returncode})"]
+    for label, stream in (("stdout", stdout), ("stderr", stderr)):
+        text = (stream or "").strip()
+        if text:
+            parts.append(f"--- {label} ---\n{text[-2000:]}")
+    if hint and hint not in (stdout or "") and hint not in (stderr or ""):
+        parts.append(hint)
+    return "\n".join(parts)
+
+
 def run(*args):
     p = subprocess.run(args, capture_output=True, text=True, cwd=REPO)
     if p.returncode != 0:
-        raise SystemExit(f"{' '.join(args)} failed:\n{p.stderr[-2000:]}")
+        raise SystemExit(failure_message(args, p.returncode, p.stdout, p.stderr))
+    if _JSON_ERROR.search(p.stdout or ""):
+        raise SystemExit(failure_message(args, p.returncode, p.stdout, p.stderr))
     return p.stdout
 
 

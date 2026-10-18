@@ -36,3 +36,23 @@ def test_restore_binding_returns_to_current():
                                                     "id": "58bb097e"}})
     assert '"database_name": "ofac-20261014"' in out
     assert '"database_id": "58bb097e"' in out
+
+
+def test_failure_message_includes_stdout():
+    """wrangler --json writes errors to stdout, not stderr.
+
+    Surfacing only stderr made a failing reseed print an empty diagnostic:
+    "wrangler d1 execute ... failed:" and nothing after it.
+    """
+    msg = swap_db.failure_message(
+        ("wrangler", "d1", "execute"), returncode=1, stdout="", stderr="",
+        hint="no such table: meta: SQLITE_ERROR")
+    assert "no such table: meta" in msg
+    assert "wrangler d1 execute" in msg
+
+
+def test_failure_message_includes_stderr():
+    msg = swap_db.failure_message(
+        ("wrangler", "d1", "list"), returncode=2, stdout="out", stderr="err",
+        hint="")
+    assert "out" in msg and "err" in msg
