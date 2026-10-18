@@ -7,7 +7,15 @@ import db
 import legacy_db
 
 FIX = pathlib.Path(__file__).parent / "fixtures"
-SNAPSHOT = str(pathlib.Path(__file__).resolve().parents[1] / "data" / "ofac.db")
+SNAPSHOT = pathlib.Path(__file__).resolve().parents[1] / "data" / "ofac.db"
+
+# The comparison tests below run against the gitignored data/ofac.db snapshot.
+# A fresh checkout has no data/ directory, and db.connect() would silently
+# create an empty database there, so skip instead of failing on missing tables.
+needs_snapshot = pytest.mark.skipif(
+    not SNAPSHOT.exists(),
+    reason=f"needs the gitignored snapshot {SNAPSHOT} (run scripts/build_seed.py)",
+)
 
 # precompute over the full snapshot costs ~7s (182 countries x 4 queries), and
 # the snapshot is read-only and immutable for the duration of a run. Compute it
@@ -18,7 +26,7 @@ _snap_cache = []
 @pytest.fixture(scope="module")
 def snap():
     if not _snap_cache:
-        _snap_cache.append(db.precompute(db.connect(SNAPSHOT)))
+        _snap_cache.append(db.precompute(db.connect(str(SNAPSHOT))))
     return _snap_cache[0]
 
 ENTITIES = [(1, 10, "Individual", "ALPHA"),
@@ -78,6 +86,7 @@ def test_precompute_synthetic(tmp_path):
     assert {e["name"] for e in payload["entities"]} == {"ALPHA", "BETA", "GAMMA"}
 
 
+@needs_snapshot
 def test_precompute_matches_countries_fixture(snap):
     """Compare keyed, not positionally.
 
@@ -92,6 +101,7 @@ def test_precompute_matches_countries_fixture(snap):
     assert len(got) == len(out["country_totals"]), "duplicate country in output"
 
 
+@needs_snapshot
 def test_country_totals_ties_break_by_name(snap):
     """The tiebreak must be explicit, not left to scan order.
 
@@ -108,6 +118,7 @@ def test_country_totals_ties_break_by_name(snap):
                 f"precede {nxt['country']!r}")
 
 
+@needs_snapshot
 def test_precompute_matches_programs_and_lists_fixtures(snap):
     out = snap
     assert out["program_counts"] == [
@@ -128,6 +139,7 @@ def _norm(payload):
     return out
 
 
+@needs_snapshot
 def test_precompute_matches_country_fixtures(snap):
     import capture_fixtures
 
@@ -139,15 +151,17 @@ def test_precompute_matches_country_fixtures(snap):
         assert got[name] == _norm(json.loads(path.read_text())), path.name
 
 
+@needs_snapshot
 def test_precompute_is_deterministic():
     """Tied ORDER BY values must not make the seed drift between runs."""
-    a = db.precompute(db.connect(SNAPSHOT))
-    b = db.precompute(db.connect(SNAPSHOT))
+    a = db.precompute(db.connect(str(SNAPSHOT)))
+    b = db.precompute(db.connect(str(SNAPSHOT)))
     assert a == b
 
 
+@needs_snapshot
 def test_precompute_meta_matches_legacy_counts(snap):
-    conn = db.connect(SNAPSHOT)
+    conn = db.connect(str(SNAPSHOT))
     out = snap
     assert out["meta"]["entities"] == legacy_db.count_entities(conn)
     assert out["meta"]["countries"] == legacy_db.count_countries(conn)
