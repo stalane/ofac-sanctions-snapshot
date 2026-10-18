@@ -24,6 +24,10 @@ import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# The pre-stamping database name. Never referenced by dbs.json, so it would
+# otherwise occupy a free-tier slot (10 per account) forever.
+LEGACY_DB = "ofac"
+
 
 def run(*args):
     p = subprocess.run(args, capture_output=True, text=True, cwd=REPO)
@@ -32,11 +36,43 @@ def run(*args):
     return p.stdout
 
 
-def main():
-    stamp = os.environ["STAMP"]
-    db_name = f"ofac-{stamp}"
+COUNTS = ("entities", "countries", "programs", "lists")
 
-    want = json.load(open(os.path.join(REPO, "seed", "counts.json")))
+
+def smoke_url():
+    """Cache-busted /api/meta URL for the post-deploy smoke test.
+
+    caches.default keys on the full URL including the query string, while the
+    worker dispatches on url.pathname alone, so a unique query string routes
+    normally but is a guaranteed edge-cache miss. Without it the smoke test can
+    read the pre-deploy response and fail against a perfectly good deploy.
+    """
+    return f"https://ofac.stalane.com/api/meta?smoke={time.time_ns()}"
+
+
+def matches(meta, want):
+    """Whether a /api/meta body satisfies the seeded counts."""
+    return all(meta.get(k) == want.get(k) for k in COUNTS)
+
+
+def set_binding(cfg_text, name, db_id):
+    """Point wrangler.jsonc at a database, updating name and id together."""
+    for field, value in (("database_name", name), ("database_id", db_id)):
+        cfg_text, n = re.subn(rf'"{field}":\s*"[^"]+"',
+                              f'"{field}": "{value}"', cfg_text, count=1)
+        assert n == 1, f"{field} not found in wrangler.jsonc"
+    return cfg_text
+
+
+def restore_binding(cfg_text, dbs):
+    """Roll wrangler.jsonc back to the binding recorded in dbs.json."""
+    current = dbs["current"]
+    return set_binding(cfg_text, current["name"], current["id"])
+
+
+def verify_counts(db_name, want):
+    """Count check against the freshly seeded database. Live data is untouched
+    at this point, so a mismatch aborts before anything is deployed."""
     got = json.loads(
         run(
             "wrangler", "d1", "execute", db_name, "--remote", "--json",
@@ -52,52 +88,81 @@ def main():
         raise SystemExit(f"count mismatch: D1={got} snapshot={want}")
     print("counts match:", got, flush=True)
 
+
+def build_assets():
+    pub = os.path.join(REPO, "worker", "public")
+    shutil.rmtree(pub, ignore_errors=True)
+    os.makedirs(pub)
+    shutil.copy(os.path.join(REPO, "static", "index.html"), pub)
+    shutil.copytree(os.path.join(REPO, "static"), os.path.join(pub, "static"))
+
+
+def deploy():
+    build_assets()
+    run("wrangler", "deploy", "--config", "worker/wrangler.jsonc")
+    print("worker deployed", flush=True)
+
+
+def smoke(want):
+    """Poll the deployed worker until it serves the freshly seeded counts.
+
+    Retries on a stale or wrong payload, not only on a transport error: an edge
+    cache entry written before the deploy must not satisfy the check.
+    """
+    req = urllib.request.Request(
+        smoke_url(), headers={"User-Agent": "Mozilla/5.0 (reseed-smoke-check)"}
+    )
+    for attempt in range(12):
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                meta = json.load(r)
+            if matches(meta, want):
+                return meta
+            print(f"smoke mismatch (attempt {attempt + 1}): {meta}", flush=True)
+        except Exception as e:  # noqa: BLE001 - transient edge propagation
+            print("smoke retry:", e, flush=True)
+        time.sleep(10)
+    return None
+
+
+def main():
+    stamp = os.environ["STAMP"]
+    db_name = f"ofac-{stamp}"
+
+    want = json.load(open(os.path.join(REPO, "seed", "counts.json")))
+    verify_counts(db_name, want)
+
     info = json.loads(run("wrangler", "d1", "list", "--json"))
     new_id = next(d["uuid"] for d in info if d["name"] == db_name)
 
     dbs_path = os.path.join(REPO, "worker", "dbs.json")
     dbs = json.load(open(dbs_path))
+    cfg_path = os.path.join(REPO, "worker", "wrangler.jsonc")
+    prev_cfg = open(cfg_path).read()
+
+    open(cfg_path, "w").write(set_binding(prev_cfg, db_name, new_id))
+    deploy()
+
+    meta = smoke(want)
+    if meta is None:
+        print("smoke test FAILED - restoring previous binding", flush=True)
+        open(cfg_path, "w").write(restore_binding(prev_cfg, dbs))
+        deploy()
+        raise SystemExit(f"smoke test failed for {db_name}; previous binding restored")
+    print("smoke test OK:", meta, flush=True)
+
     prev = dbs.get("current")
     dbs["previous"] = prev
     dbs["current"] = {"name": db_name, "id": new_id}
     json.dump(dbs, open(dbs_path, "w"), indent=2)
     print("dbs.json ->", dbs["current"], "previous:", (prev or {}).get("name"), flush=True)
 
-    cfg_path = os.path.join(REPO, "worker", "wrangler.jsonc")
-    cfg = open(cfg_path).read()
-    cfg, n = re.subn(r'"database_id":\s*"[^"]+"', f'"database_id": "{new_id}"', cfg, count=1)
-    assert n == 1, "database_id not found in wrangler.jsonc"
-    open(cfg_path, "w").write(cfg)
-
-    pub = os.path.join(REPO, "worker", "public")
-    shutil.rmtree(pub, ignore_errors=True)
-    os.makedirs(pub)
-    shutil.copy(os.path.join(REPO, "static", "index.html"), pub)
-    shutil.copytree(os.path.join(REPO, "static"), os.path.join(pub, "static"))
-    run("wrangler", "deploy", "--config", "worker/wrangler.jsonc")
-    print("worker deployed", flush=True)
-
-    meta = None
-    req = urllib.request.Request(
-        "https://ofac.stalane.com/api/meta",
-        headers={"User-Agent": "Mozilla/5.0 (reseed-smoke-check)"},
-    )
-    for _ in range(12):
-        try:
-            with urllib.request.urlopen(req, timeout=20) as r:
-                meta = json.load(r)
-            break
-        except Exception as e:  # noqa: BLE001 - transient edge propagation
-            print("smoke retry:", e, flush=True)
-            time.sleep(10)
-    assert meta and meta.get("entities") == want["entities"], meta
-    print("smoke test OK:", meta, flush=True)
-
     keep = {dbs["current"]["name"]}
     if dbs.get("previous"):
         keep.add(dbs["previous"]["name"])
     for d in info:
-        if d["name"].startswith("ofac-") and d["name"] not in keep:
+        if (d["name"].startswith("ofac-") or d["name"] == LEGACY_DB) \
+                and d["name"] not in keep:
             print("pruning", d["name"], flush=True)
             run("wrangler", "d1", "delete", d["name"], "-y")
 

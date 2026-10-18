@@ -1,5 +1,9 @@
 # Generated data
 data/
+seed/
+
+# Generated at deploy time from static/ by scripts/swap_db.py
+worker/public/
 
 # Python
 __pycache__/

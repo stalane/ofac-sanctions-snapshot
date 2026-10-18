@@ -1,14 +1,15 @@
 # OFAC on Cloudflare (Worker + D1 + Static Assets)
 
-Production: <https://ofac.stalane.com> (Worker `ofac`, D1 database `ofac`).
-The box no longer serves this app — no Flask, no tunnel.
+Production: <https://ofac.stalane.com> (Worker `ofac`, D1 database
+`ofac-YYYYMMDD` — the live one is recorded in `worker/dbs.json`).
+The box does not serve this app — no Flask, no tunnel.
 
 ## Layout
 
 - `worker/wrangler.jsonc` — Worker config, Static Assets dir, D1 binding.
   Uses top-level `d1_databases` (wrangler v4 schema; nested `d1.databases`
   is rejected).
-- `worker/src/index.js` — API port of `app.py`/`db.py`. Read-only.
+- `worker/src/index.js` — the API. Read-only; D1 is never written at runtime.
 - `worker/public/` — NOT in git. Generated at deploy time from `static/`
   (see below). The frontend is byte-identical to Flask's `static/`.
 
@@ -63,7 +64,18 @@ Needs `CLOUDFLARE_API_TOKEN` (Account D1 edit + Workers Scripts edit).
 
 ## Rollback
 
-Box services currently live again (`ofac-app` + `ofac-tunnel` systemd units,
-Flask on `:8787`) — the 2026-09-19 removal was reversed by re-migrating to
-the robust setup. To go back to tunnel-only serving: stop `ofac-app`,
-recreate tunnel + DNS CNAME if deleted.
+`scripts/swap_db.py` verifies counts, deploys, then smoke-tests production
+before recording anything. If the smoke test does not match the seeded counts
+it **restores the previous binding from `dbs.json` and redeploys**, then exits
+non-zero without touching `dbs.json`. So a failed swap cannot strand
+production on an unverified database, and the committed `dbs.json` always
+reflects what is actually live.
+
+The smoke test requests `/api/meta` with a unique query string. This matters:
+`/api/meta` is edge-cached for 60s, and without the query string the check can
+read the *pre-deploy* cached response and fail a perfectly good deploy. It
+retries on a mismatched payload, not only on a transport error.
+
+To roll back deliberately, put the previous database id and name back in
+`worker/wrangler.jsonc` and redeploy — that is still valid while both
+databases share a schema.
