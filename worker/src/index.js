@@ -1,18 +1,21 @@
-/* OFAC Sanctions Snapshot API — Cloudflare Worker + D1 port of app.py/db.py.
- * Read-only: data is seeded from the SQLite snapshot (see seed notes).
- * Refresh is handled by an external pipeline, so /api/refresh is a no-op
- * and /api/progress always reports idle — the frontend tolerates both. */
-
-/* OFAC Sanctions Snapshot API — Cloudflare Worker + D1 port of app.py/db.py.
- * Read-only: data is seeded from the SQLite snapshot (see seed notes).
- * Refresh is handled by an external pipeline, so /api/refresh is a no-op
- * and /api/progress always reports idle — the frontend tolerates both.
+/* OFAC Sanctions Snapshot API — Cloudflare Worker + D1 serving cache.
+ * Read-only: D1 is never written at request time. Data is seeded weekly by
+ * .github/workflows/reseed.yml, so /api/refresh is a no-op and /api/progress
+ * always reports idle — the frontend tolerates both.
  *
- * Edge caching: snapshot data changes weekly at most, but the D1 free
- * tier caps reads at 5M rows/day (full-table aggregations scan tens of
- * thousands of rows per call). GET /api/* responses are cached at the
- * edge so steady state costs ~zero D1 reads. TTLs are short for /api/meta
- * (readiness signal) and long for the rest. */
+ * Every response is precomputed at seed time by db.precompute() and stored as
+ * five small tables (meta, country_totals, country_detail, program_counts,
+ * list_counts). Each handler below is a single primary-key lookup. This
+ * replaced running aggregations per request, which full-scanned entities,
+ * programs and lists on every /api/country/<name> call: 92% of all D1 rows read,
+ * and a 35s timeout that 500'd Russia outright.
+ *
+ * Edge caching: snapshot data changes weekly at most. GET /api/* responses are
+ * cached at the edge so steady state costs ~zero D1 reads. TTLs are short for
+ * /api/meta (readiness signal) and long for the rest.
+ *
+ * The Worker code and the serving schema ship in one commit — a new index.js
+ * against an old-schema database 500s every endpoint. */
 
 function cacheTtl(path) {
   if (path === "/api/meta") return 60;
@@ -29,41 +32,38 @@ function json(data, status = 200) {
 }
 
 async function handleMeta(db) {
-  const [asOf, entities, countries, programs, lists] = await Promise.all([
-    db.prepare("SELECT value FROM meta WHERE key = 'data_as_of'").first("value"),
-    db.prepare("SELECT COUNT(*) AS n FROM entities").first("n"),
-    db.prepare("SELECT COUNT(DISTINCT country) AS n FROM countries").first("n"),
-    db.prepare("SELECT COUNT(DISTINCT program) AS n FROM programs").first("n"),
-    db.prepare("SELECT COUNT(DISTINCT list_name) AS n FROM lists").first("n"),
-  ]);
-  if (!entities) {
+  const { results } = await db.prepare(
+    "SELECT key, value FROM meta WHERE key IN " +
+    "('data_as_of', 'entities', 'countries', 'programs', 'lists')"
+  ).all();
+  const m = {};
+  for (const row of results) m[row.key] = row.value;
+  // meta.value is TEXT; the frontend expects numbers. An absent entities row
+  // is the not-ready signal (fresh or partially seeded database).
+  const entities = Number(m.entities);
+  if (!Number.isFinite(entities) || entities === 0) {
     return json({
       ready: false, refreshing: false, data_as_of: null,
       entities: 0, countries: 0, programs: 0, lists: 0,
     });
   }
   return json({
-    ready: true, refreshing: false, data_as_of: asOf,
-    entities, countries, programs, lists,
+    ready: true, refreshing: false, data_as_of: m.data_as_of,
+    entities,
+    countries: Number(m.countries),
+    programs: Number(m.programs),
+    lists: Number(m.lists),
   });
 }
 
 async function handleCountries(db) {
   const { results } = await db.prepare(`
-    SELECT d.country,
-           COUNT(DISTINCT d.entity_id) AS total,
-           SUM(CASE WHEN e.entity_type = 'Individual' THEN 1 ELSE 0 END) AS individuals,
-           SUM(CASE WHEN e.entity_type = 'Entity' THEN 1 ELSE 0 END) AS organizations,
-           SUM(CASE WHEN e.entity_type = 'Vessel' THEN 1 ELSE 0 END) AS vessels
-    FROM (SELECT DISTINCT entity_id, country FROM countries) d
-    JOIN entities e ON e.id = d.entity_id
-    GROUP BY d.country
-    ORDER BY total DESC
+    SELECT country, total, individuals, organizations, vessels
+    FROM country_totals
+    ORDER BY total DESC, country ASC
   `).all();
   return json({ data: results });
 }
-
-const DEDUP = "(SELECT DISTINCT entity_id FROM countries WHERE country = ?)";
 
 async function handleCountry(db, name) {
   let country;
@@ -72,70 +72,30 @@ async function handleCountry(db, name) {
   } catch {
     return json({ error: "bad country encoding" }, 400);
   }
-  // Cheap existence check first (uses idx_countries_country, ~1 row): unknown
-  // names must 404 here, not after the multi-million-row aggregations below.
-  const known = await db.prepare("SELECT 1 FROM countries WHERE country = ? LIMIT 1").bind(country).first();
-  if (!known) {
+  const row = await db.prepare(
+    "SELECT payload FROM country_detail WHERE country = ?"
+  ).bind(country).first();
+  if (!row) {
     return json({ error: "country not found" }, 404);
   }
-  const [types, programs, lists, entities] = await Promise.all([
-    db.prepare(`
-      SELECT e.entity_type, COUNT(*) AS count
-      FROM entities e
-      JOIN ${DEDUP} d ON d.entity_id = e.id
-      GROUP BY e.entity_type
-      ORDER BY count DESC`).bind(country).all(),
-    db.prepare(`
-      SELECT p.program, COUNT(DISTINCT p.entity_id) AS count
-      FROM programs p
-      JOIN ${DEDUP} d ON d.entity_id = p.entity_id
-      GROUP BY p.program
-      ORDER BY count DESC
-      LIMIT 12`).bind(country).all(),
-    db.prepare(`
-      SELECT l.list_name, COUNT(DISTINCT l.entity_id) AS count
-      FROM lists l
-      JOIN ${DEDUP} d ON d.entity_id = l.entity_id
-      GROUP BY l.list_name
-      ORDER BY count DESC
-      LIMIT 8`).bind(country).all(),
-    db.prepare(`
-      SELECT e.id, e.name, e.entity_type,
-             COALESCE(GROUP_CONCAT(DISTINCT p.program), '') AS programs,
-             COALESCE(GROUP_CONCAT(DISTINCT l.list_name), '') AS lists
-      FROM entities e
-      LEFT JOIN programs p ON p.entity_id = e.id
-      LEFT JOIN lists l ON l.entity_id = e.id
-      JOIN ${DEDUP} d ON d.entity_id = e.id
-      GROUP BY e.id
-      ORDER BY e.name
-      LIMIT 50`).bind(country).all(),
-  ]);
-  if (!entities.results.length && !types.results.length) {
-    return json({ error: "country not found" }, 404);
-  }
-  return json({
-    types: types.results, programs: programs.results,
-    lists: lists.results, entities: entities.results,
-  });
+  return json(JSON.parse(row.payload));
 }
 
 async function handlePrograms(db) {
   const { results } = await db.prepare(`
-    SELECT program, COUNT(DISTINCT entity_id) AS count
-    FROM programs
-    GROUP BY program
-    ORDER BY count DESC
-    LIMIT 20`).all();
+    SELECT program, n AS count
+    FROM program_counts
+    ORDER BY n DESC, program ASC
+  `).all();
   return json({ data: results });
 }
 
 async function handleLists(db) {
   const { results } = await db.prepare(`
-    SELECT list_name, COUNT(DISTINCT entity_id) AS count
-    FROM lists
-    GROUP BY list_name
-    ORDER BY count DESC`).all();
+    SELECT list_name, n AS count
+    FROM list_counts
+    ORDER BY n DESC, list_name ASC
+  `).all();
   return json({ data: results });
 }
 

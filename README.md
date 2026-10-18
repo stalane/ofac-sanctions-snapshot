@@ -40,7 +40,6 @@ fetch.py                 Downloads the consolidated XML (curl) and parses it
 db.py                    Local snapshot schema + precompute()
 scripts/build_seed.py    Downloads the snapshot, emits schema.sql + seed.sql
 scripts/swap_db.py       Verify -> deploy -> smoke test -> record -> prune
-scripts/apply_part2.py   Enforces the UTC-day split for the seed
 tests/                   pytest suite + golden response fixtures
 data/ofac.db             Local snapshot (gitignored, ~4 MB)
 ```

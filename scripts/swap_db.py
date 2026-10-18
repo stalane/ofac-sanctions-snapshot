@@ -38,6 +38,20 @@ def run(*args):
 
 COUNTS = ("entities", "countries", "programs", "lists")
 
+# Serving-table row counts, aliased to their counts.json keys. Comparing these
+# exactly (rather than deriving one from another) is what makes a truncated or
+# half-seeded database fail the swap instead of shipping.
+TABLES = {"country_detail": "cd", "country_totals": "ct",
+          "program_counts": "pc", "list_counts": "lc"}
+
+_VERIFY_SQL = (
+    "SELECT (SELECT value FROM meta WHERE key='entities') e,"
+    "(SELECT value FROM meta WHERE key='countries') c,"
+    "(SELECT value FROM meta WHERE key='programs') p,"
+    "(SELECT value FROM meta WHERE key='lists') l,"
+    + ",".join(f"(SELECT COUNT(*) FROM {t}) {a}" for t, a in TABLES.items())
+)
+
 
 def smoke_url():
     """Cache-busted /api/meta URL for the post-deploy smoke test.
@@ -76,16 +90,16 @@ def verify_counts(db_name, want):
     got = json.loads(
         run(
             "wrangler", "d1", "execute", db_name, "--remote", "--json",
-            "--command",
-            "SELECT (SELECT COUNT(*) FROM entities) e,"
-            "(SELECT COUNT(*) FROM countries) c,"
-            "(SELECT COUNT(*) FROM programs) p,"
-            "(SELECT COUNT(*) FROM lists) l",
+            "--command", _VERIFY_SQL,
         )
     )[0]["results"][0]
-    pairs = [("e", "entities"), ("c", "countries"), ("p", "programs"), ("l", "lists")]
-    if any(got[k] != want[t] for k, t in pairs):
-        raise SystemExit(f"count mismatch: D1={got} snapshot={want}")
+    # meta.value is TEXT, so the scalars arrive as strings; counts.json ints.
+    keys = dict(zip(COUNTS, ("e", "c", "p", "l")))
+    keys.update(TABLES)
+    bad = {t: (got[a], want[t]) for t, a in keys.items()
+           if int(got[a]) != int(want[t])}
+    if bad:
+        raise SystemExit(f"count mismatch (D1, snapshot): {bad}")
     print("counts match:", got, flush=True)
 
 

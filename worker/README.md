@@ -25,42 +25,68 @@ wrangler deploy --config worker/wrangler.jsonc
 Custom domain `ofac.stalane.com` is attached via
 `PUT /accounts/{id}/workers/domains` (not in wrangler.jsonc).
 
-## Data refresh (two UTC days — free-tier write cap)
+## Serving schema
+
+The live D1 database holds **no raw `entities`/`countries`/`programs`/`lists`
+data**. Every endpoint response is precomputed once per reseed by
+`db.precompute()` and stored as five small tables:
+
+| table | rows | read per uncached call |
+|---|---:|---:|
+| `meta` (`data_as_of` + four counts) | 5 | 5 |
+| `country_totals(country, total, individuals, organizations, vessels)` | 182 | 182 |
+| `country_detail(country, payload)` — the whole response as one JSON row | 182 | **1** |
+| `program_counts(program, n)` | 20 | 20 |
+| `list_counts(list_name, n)` | 7 | 7 |
+
+A row costs the same to read whether it is 1 KB or 100 KB, so
+`country_detail.payload` costs exactly what a narrow row would. The largest
+payload is ~7.4 KB (Russia), against D1's 100,000-byte statement limit.
+
+This replaced running aggregations per request. `programs`, `lists` and
+`countries` had no index on `entity_id`, so SQLite built an automatic index by
+fully scanning `programs` and `lists` on every `/api/country/<name>` call —
+identical cost for Malta and for Russia. That was 92% of all D1 rows read, and
+a 35s timeout that returned HTTP 500 for Russia outright.
+
+**The worker code and this schema ship in one commit.** `swap_db.py` deploys
+from the workflow's checked-out ref, so they always match — but only if they
+land together.
+
+## Data refresh (single UTC day)
 
 `/api/refresh` is a no-op; `/api/progress` always reports idle. Fresh data
-arrives via `.github/workflows/reseed.yml` (Wed 01:00 UTC part 1, Thu 01:00
-UTC part 2 — OFAC usually updates Mon/Tue):
+arrives via `.github/workflows/reseed.yml` on Wed 01:00 UTC (OFAC usually
+updates Mon/Tue):
 
-1. `scripts/build_seed.py` downloads the snapshot and splits it into
-   `schema.sql` + `part1.sql` (entities, countries, ~55k writes) +
-   `part2.sql` (programs, lists, meta, ~88k writes). It aborts if either
-   part exceeds the 95k budget — a full single-day reseed needs ~143k
-   writes and trips the 100k/day free cap.
-2. Part 1 creates a fresh `ofac-YYYYMMDD` database and seeds schema + part 1.
-3. Part 2 seeds part 2, verifies row counts against `counts.json`, then
-   `scripts/swap_db.py` rebinds the worker, deploys, smoke-tests
-   production, records `{current, previous}` in `worker/dbs.json`, and
-   prunes older `ofac-*` databases (keeps two for rollback).
+1. `pytest` runs, then `scripts/build_seed.py` downloads the snapshot and emits
+   `schema.sql` + `seed.sql` + `counts.json`. ~800 rows against the 100,000/day
+   free cap, so there is no day-splitting guard and no write-budget abort.
+2. A fresh `ofac-YYYYMMDD` database is created and seeded.
+3. `scripts/swap_db.py` verifies every table count against `counts.json`, then
+   rebinds the worker, deploys, smoke-tests production, records
+   `{current, previous}` in `worker/dbs.json`, and prunes older databases.
 
-The live database is never written in place. Rollback: put the previous
-id back in `wrangler.jsonc` and redeploy.
+The live database is never written in place.
 
-Manual reseed (same procedure, same order — never combine the parts into
-one day):
+Manual reseed (same procedure, same order):
 
 ```bash
+python3 -m pytest -v
 python3 scripts/build_seed.py seed
 DB=ofac-$(date -u +%Y%m%d)
 wrangler d1 delete "$DB" -y || true
 wrangler d1 create "$DB"
 wrangler d1 execute "$DB" --remote --file=seed/schema.sql
-wrangler d1 execute "$DB" --remote --file=seed/part1.sql
-# --- next UTC day (enforced: apply_part2.py aborts same-day) ---
-python3 scripts/apply_part2.py "$DB" seed
-STAMP=$(date -u -d 'last wednesday' +%Y%m%d) python3 scripts/swap_db.py
+wrangler d1 execute "$DB" --remote --file=seed/seed.sql
+STAMP=$(date -u +%Y%m%d) python3 scripts/swap_db.py
 ```
 
 Needs `CLOUDFLARE_API_TOKEN` (Account D1 edit + Workers Scripts edit).
+
+Ad-hoc queries against production are no longer possible — explore
+`data/ofac.db` locally instead. Adding an endpoint means adding a table to
+`db.precompute()` and reseeding.
 
 ## Rollback
 
@@ -77,5 +103,8 @@ read the *pre-deploy* cached response and fail a perfectly good deploy. It
 retries on a mismatched payload, not only on a transport error.
 
 To roll back deliberately, put the previous database id and name back in
-`worker/wrangler.jsonc` and redeploy — that is still valid while both
-databases share a schema.
+`worker/wrangler.jsonc` and redeploy — that works only while both databases
+share a schema. Once this change has shipped, `previous` is old-schema and the
+new `index.js` cannot read it, so rollback becomes **revert the commit, redeploy,
+rebind**: the code half and the schema half are reversible only together, which
+is the same constraint as shipping them.
