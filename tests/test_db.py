@@ -1,4 +1,5 @@
 import db
+import legacy_db
 
 
 def test_init_and_meta(tmp_path):
@@ -22,13 +23,13 @@ def test_country_totals_and_detail(tmp_path):
     db.load_rows(conn, "lists", [(1, "SDN List", "2020-01-01"), (2, "SDN List", "2020-01-01"), (3, "SSI List", "2021-01-01")])
     db.load_rows(conn, "sanctions_types", [(1, "Block"), (2, "Block"), (3, "Debt")])
 
-    totals = {c["country"]: c for c in db.country_totals(conn)}
+    totals = {c["country"]: c for c in legacy_db.country_totals(conn)}
     assert totals["Syria"]["total"] == 3
     assert totals["Syria"]["individuals"] == 1
     assert totals["Syria"]["organizations"] == 1
     assert totals["Syria"]["vessels"] == 1
 
-    d = db.country_detail(conn, "Syria")
+    d = legacy_db.country_detail(conn, "Syria")
     assert {t["entity_type"] for t in d["types"]} == {"Individual", "Entity", "Vessel"}
     assert {p["program"] for p in d["programs"]} == {"SYRIA", "CUBA", "IRAN"}
     assert {l["list_name"] for l in d["lists"]} == {"SDN List", "SSI List"}

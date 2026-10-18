@@ -52,10 +52,11 @@ def test_parse_xml(tmp_path):
     assert s["lists"] == {"SDN List"}
 
     import db
+    import legacy_db
 
     conn = db.connect(dbf)
     db.init_db(conn)
-    totals = {c["country"]: c for c in db.country_totals(conn)}
+    totals = {c["country"]: c for c in legacy_db.country_totals(conn)}
     assert totals["Turkey"]["total"] == 2
     assert totals["Turkey"]["individuals"] == 1
     assert totals["Turkey"]["organizations"] == 1
@@ -66,10 +67,11 @@ def test_parse_xml_name_fallback(tmp_path):
     dbf = str(tmp_path / "o.db")
     parse_xml(xml, dbf)
     import db
+    import legacy_db
 
     conn = db.connect(dbf)
     db.init_db(conn)
-    d = db.country_detail(conn, "Turkey")
+    d = legacy_db.country_detail(conn, "Turkey")
     names = {e["name"] for e in d["entities"]}
     assert "AL-SAMAHI, Alaa" in names
     assert "KAVE COFFEE S.A." in names
@@ -82,8 +84,9 @@ def test_parse_xml_idempotent_rerun(tmp_path):
     second = parse_xml(xml, dbf)
     assert second["entities"] == first["entities"] == 2
     import db
+    import legacy_db
 
     conn = db.connect(dbf)
     db.init_db(conn)
-    assert db.count_entities(conn) == 2
+    assert legacy_db.count_entities(conn) == 2
     assert db.get_meta(conn, "data_as_of") == first["data_as_of"]

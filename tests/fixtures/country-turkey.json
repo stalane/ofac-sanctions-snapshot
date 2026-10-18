@@ -1,0 +1,428 @@
+{
+  "types": [
+    {
+      "entity_type": "Entity",
+      "count": 240
+    },
+    {
+      "entity_type": "Individual",
+      "count": 142
+    }
+  ],
+  "programs": [
+    {
+      "program": "SDGT",
+      "count": 185
+    },
+    {
+      "program": "RUSSIA-EO14024",
+      "count": 111
+    },
+    {
+      "program": "IFSR",
+      "count": 61
+    },
+    {
+      "program": "NPWMD",
+      "count": 34
+    },
+    {
+      "program": "IRAN-EO13846",
+      "count": 22
+    },
+    {
+      "program": "IRAN-EO13902",
+      "count": 12
+    },
+    {
+      "program": "BELARUS-EO14038",
+      "count": 2
+    },
+    {
+      "program": "DPRK",
+      "count": 2
+    },
+    {
+      "program": "GLOMAG",
+      "count": 2
+    },
+    {
+      "program": "IRAN-HR",
+      "count": 2
+    },
+    {
+      "program": "PAARSSR-EO13894",
+      "count": 2
+    },
+    {
+      "program": "CAATSA - RUSSIA",
+      "count": 1
+    }
+  ],
+  "lists": [
+    {
+      "list_name": "SDN List",
+      "count": 381
+    },
+    {
+      "list_name": "Consolidated List",
+      "count": 1
+    },
+    {
+      "list_name": "Non-SDN Menu-Based Sanctions List",
+      "count": 1
+    }
+  ],
+  "entities": [
+    {
+      "id": 24523,
+      "name": "3G LOJISTIK VE HAVACILIK HIZMETLARI LTD.",
+      "entity_type": "Entity",
+      "programs": "IFSR,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48424,
+      "name": "A Y A UNIVERSAL DENIZCILIK KUMANYACILIK LIMAN HIZMETLERI ITHALAT IHRACAT LIMITED SIRKETI",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 18963,
+      "name": "ABDURAKHMANOV, Maghomed Maghomedzakirovich",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 55894,
+      "name": "ABY PLASTIK AMBALAJ VE ENERJI SANAYI TICARET ANONIM SIRKETI",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13846",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58307,
+      "name": "ACUR, Mehmet",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37180,
+      "name": "ADHIGUNA, Muhammad Dandi",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 32176,
+      "name": "ADOON GENERAL TRADING GIDA SANAYI VE TICARET ANONIM SIRKETI",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 55822,
+      "name": "AHMED, Sherif Ahmed Ewis",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 49608,
+      "name": "AKARI, Musa Daud Muhammad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 36074,
+      "name": "AKTAU PETROL TICARET ANONIM SIRKETI",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58306,
+      "name": "AKYUZ, Mehmet",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58286,
+      "name": "AKYUZ, Vasfi",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47185,
+      "name": "AL AHMAR, Hamid Abdullah Hussein",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47089,
+      "name": "AL AMAN KARGO ITHALAT IHRACAT VE NAKLIYAT LIMITED SIRKETI",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 31954,
+      "name": "AL FAY COMPANY",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25063,
+      "name": "AL HARAM FOREIGN EXCHANGE CO. LTD",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 27973,
+      "name": "AL SULTAN MONEY TRANSFER COMPANY",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47328,
+      "name": "AL-'UWAYR, Ibrahim Talal",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26700,
+      "name": "AL-ARD AL-JADIDAH MONEY EXCHANGE COMPANY",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 46230,
+      "name": "AL-DIN, Haroun Mansour Yaqoub Nasser",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 45671,
+      "name": "AL-DUWAIK, Aiman Ahmad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 31953,
+      "name": "AL-FAY, Ibrahim Ali 'Awad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 31952,
+      "name": "AL-FAY, Idris 'Ali 'Awwad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 33289,
+      "name": "AL-GHAZLANI, Muhammad Nasr al-Din",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 24762,
+      "name": "AL-HEBO JEWELRY COMPANY",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 24763,
+      "name": "AL-HEBO, Muhamad Ali",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58200,
+      "name": "AL-JEBOURI, Abdulla Issam Ahmad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58199,
+      "name": "AL-JEBOURI, Zaid Issam Ahmed",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40401,
+      "name": "AL-JUBURI, Lu'ay Jasim Hammadi",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 24760,
+      "name": "AL-KHALIDI EXCHANGE",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40396,
+      "name": "AL-KHATUNI, Abd Al Hamid Salim Ibrahim Ismail Brukan",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40400,
+      "name": "AL-KHATUNI, Muhammad Abdul Hamid Salim Brukan",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40399,
+      "name": "AL-KHATUNI, Umar Abdul Hamid Salim Brukan",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58557,
+      "name": "AL-MAKANSI, Amir",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 22863,
+      "name": "AL-MANSUR, Salim Mustafa Muhammad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47001,
+      "name": "AL-MARKAZIYA LI-SIARAFA",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 56034,
+      "name": "AL-NAJJAR, Muhammad Jamal Hassan",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 43817,
+      "name": "AL-RASHIDI, Nawaf Ahmad Alwan",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25057,
+      "name": "AL-RAWI, 'Adnan Muhammad Amin",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26698,
+      "name": "AL-RAWI, Abd-al-Rahman 'Ali Husayn al-Ahmad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 27124,
+      "name": "AL-RAWI, Marwan Mahdi Salah",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26695,
+      "name": "AL-RAWI, Muhannad Mushtaq Talib Zghayir Karhout",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26696,
+      "name": "AL-RAWI, Mushtaq Talib Zughayr",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 32177,
+      "name": "AL-RAWI, Talib 'Ali Husayn Al-Ahmad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26697,
+      "name": "AL-RAWI, Umar Talib Zughayr",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44625,
+      "name": "AL-SAFIR OTO",
+      "entity_type": "Entity",
+      "programs": "SYRIA-EO13894",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30962,
+      "name": "AL-SAMAHI, Alaa Ali Ali Mohammed",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 28838,
+      "name": "AL-SHABAN, Hasan",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 33279,
+      "name": "AL-USTADZ, Majdi Fa'iz",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 36075,
+      "name": "ALAN ENERJI URETIM SANAYI VE TICARET ANONIM SIRKETI",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    }
+  ]
+}

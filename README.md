@@ -1,13 +1,14 @@
 # OFAC Sanctions Snapshot
 
-A local web dashboard that shows a sanctions snapshot **by country** from
-OFAC's [Sanctions List Service (SLS) API](https://sanctionslistservice.ofac.treas.gov/).
-It downloads OFAC's consolidated sanctions list, caches it locally in SQLite,
-and renders KPIs and charts in a dark "finance" theme with Chart.js.
+A web dashboard that shows a sanctions snapshot **by country** from OFAC's
+[Sanctions List Service (SLS) API](https://sanctionslistservice.ofac.treas.gov/),
+served entirely from the edge.
 
-On load, the dashboard automatically focuses on **the visitor's country**
-(detected from their IP address), with a country selector to browse any other
-country's exposure.
+Production: <https://ofac.stalane.com> — a Cloudflare Worker with static assets
+and a D1 database. There is no application server; the box does not run this app.
+
+On load, the dashboard focuses on **the visitor's country** (detected
+client-side), with a selector to browse any other country's exposure.
 
 ## Features
 
@@ -18,72 +19,64 @@ country's exposure.
   detected client-side with a 3-provider geolocation fallback chain and a 24h
   local cache. If detection fails, it falls back to the country with the most
   entities.
-- **Global overview** — top 15 countries by sanctioned entities and the
+- **Global overview** — top countries by sanctioned entities and the
   sanctions-list distribution.
 - **Dark finance theme** — pure-black background, navy cards, flat blue primary,
   per-panel loading skeletons and error/retry states.
-- **Refreshable data** — a Refresh button re-downloads the latest consolidated
-  list from OFAC in the background; the UI polls until it is live again.
 
 ## Architecture
 
+The Worker is **read-only**. D1 is never written at request time; fresh data
+arrives weekly through a CI pipeline that builds a new database and swaps the
+binding.
+
 ```
-app.py        Flask server: serves the static frontend + JSON API
-fetch.py      Downloads the consolidated XML (curl) and parses it (iterparse) into SQLite
-db.py         SQLite schema and all read queries
-static/
-  index.html  Dashboard markup
-  app.js      Frontend logic: data loading, charts, geolocation, refresh
-  countrymatch.js  UMD module: matches geolocated country names to OFAC country names
-  style.css   Dark-finance theme
-data/ofac.db  Generated SQLite cache (created on first run)
-tests/        pytest (Python) + node:test (JS) suites, plus a small XML fixture
+worker/src/index.js      Worker: routes /api/*, serves static assets
+worker/wrangler.jsonc    Worker config, static assets dir, D1 binding
+worker/dbs.json          Which D1 database is live ({current, previous})
+worker/public/           Generated at deploy time from static/ — NOT in git
+static/                  The frontend, served byte-identically by the Worker
+fetch.py                 Downloads the consolidated XML (curl) and parses it
+db.py                    Local snapshot schema + precompute()
+scripts/build_seed.py    Downloads the snapshot, emits schema.sql + seed.sql
+scripts/swap_db.py       Verify -> deploy -> smoke test -> record -> prune
+scripts/apply_part2.py   Enforces the UTC-day split for the seed
+tests/                   pytest suite + golden response fixtures
+data/ofac.db             Local snapshot (gitignored, ~4 MB)
 ```
 
-**Data flow:** `app.py` → on first run (or Refresh), `fetch.py` downloads the
-full consolidated list from `https://sanctionslistservice.ofac.treas.gov/entities`
-(~100 MB XML, takes 1–2 minutes) and streams it into SQLite with
-`xml.etree.iterparse` (memory-safe). All API endpoints then answer from the
-SQLite cache, so page loads are instant.
+**Data flow:** `.github/workflows/reseed.yml` runs `build_seed.py`, which
+downloads the full consolidated list from
+`https://sanctionslistservice.ofac.treas.gov/entities` and streams it into a
+local SQLite snapshot with `xml.etree.iterparse` (memory-safe). That snapshot
+becomes a fresh `ofac-YYYYMMDD` D1 database; `swap_db.py` verifies it, rebinds
+the worker, smoke-tests production, records the new binding in `dbs.json`, and
+prunes older databases.
+
+**Refresh is not a runtime operation.** `POST /api/refresh` is a no-op and
+`/api/progress` always reports idle — the frontend tolerates both. Data updates
+weekly via the reseed workflow.
 
 ## Requirements
 
-- Python 3.10+ with **Flask** (`pip install flask`)
+- Python 3.10+ with **pytest** (tests only) — no runtime dependencies
 - `curl` (used for the OFAC download)
 - Node.js 18+ (only for the JS unit tests)
-- Internet access to OFAC (data) and a CDN (Chart.js)
-
-## Setup & Run
-
-```bash
-pip install flask          # if not already installed
-python app.py              # serves on http://127.0.0.1:8080
-```
-
-Override the port or database location with environment variables:
-
-```bash
-PORT=8787 OFAC_DB=/tmp/ofac.db python app.py
-```
-
-On the very first request the server kicks off a background download of the
-consolidated list. The page shows a "Fetching consolidated OFAC data" state and
-polls until it is ready. Subsequent requests read straight from `data/ofac.db`.
+- `wrangler` v4 and `CLOUDFLARE_API_TOKEN` (only for manual reseeds)
 
 ## API
 
 | Endpoint | Description |
 |---|---|
 | `GET /` | Dashboard frontend |
-| `GET /api/meta` | `ready` flag, `refreshing` state, as-of date, entity/country/program/list totals |
+| `GET /api/meta` | `ready` flag, as-of date, entity/country/program/list totals |
 | `GET /api/countries` | All countries with entity/individual/organization/vessel counts |
 | `GET /api/country/<name>` | Country snapshot: type breakdown, top programs, lists, notable entities |
 | `GET /api/programs` | Top 20 sanctions programs by entity count |
 | `GET /api/lists` | Sanctions-list distribution |
-| `POST /api/refresh` | Start a background re-download of the consolidated list (single-flight) |
 
 All responses are JSON. `GET /api/country/<name>` returns `404` for unknown
-countries.
+countries. Responses are edge-cached: 60s for `/api/meta`, 6h for the rest.
 
 ## How the IP-based initial country works
 
@@ -95,34 +88,36 @@ countries.
 4. `countrymatch.js` matches the geolocated name against OFAC's country names
    (exact match, token-set matching for reversed names like "Korea, North" vs
    "North Korea", plus aliases like Myanmar → Burma).
-5. If the user manually picks a country, that choice persists across a data
-   refresh; a full page reload returns to the visitor's country.
+5. If the user manually picks a country, that choice persists; a full page
+   reload returns to the visitor's country.
 6. If geolocation fails entirely, the dashboard falls back to the top country.
 
 ## Refreshing data
 
-OFAC updates the list frequently. Click **Refresh** in the header — or
-`curl -X POST http://127.0.0.1:8080/api/refresh` — to re-download the latest
-consolidated list in the background. A progress modal appears while it runs,
-showing a live **progress bar** plus a byte counter in MB during the download
-("Downloading… 12.0 of 100.0 MB") and an entity count while parsing
-("Parsing… 15,000 entities"). It disappears once the data is live and the
-dashboard re-renders with the new as-of date. The same modal is shown on the
-very first fetch.
+Data is refreshed by the weekly GitHub Actions workflow, not by the UI. To
+reseed manually, see `worker/README.md` — the procedure is identical to what CI
+runs.
 
 ## Testing
 
 ```bash
-python3 -m pytest tests/ -v    # parser, DB queries, API endpoints
-node --test tests/countrymatch.test.js   # country-name matching
+python3 -m pytest tests/ -v            # parser, precompute, swap helpers, fixtures
+node --test tests/countrymatch.test.js # country-name matching
 ```
 
-The Python tests parse a small fixture (`tests/fixtures/sample.xml`) and use a
-seeded temp database — no live network calls. To run all checks:
+The Python tests parse a small fixture (`tests/fixtures/sample.xml`) and use
+seeded temp databases — no live network calls, except that the legacy-baseline
+and `precompute` comparison tests read the gitignored `data/ofac.db` snapshot.
+To run all checks:
 
 ```bash
 python3 -m pytest tests/ -q && node --test tests/countrymatch.test.js
 ```
+
+`tests/fixtures/*.json` are golden response payloads captured from the
+pre-2026-10-18 query layer (`tests/legacy_db.py`). They exist to prove the
+serving tables return exactly what the site returned before. Regenerate with
+`python3 tests/capture_fixtures.py` after an intentional response change.
 
 ## Notes & limitations
 

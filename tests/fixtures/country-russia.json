@@ -1,0 +1,432 @@
+{
+  "types": [
+    {
+      "entity_type": "Entity",
+      "count": 3660
+    },
+    {
+      "entity_type": "Individual",
+      "count": 1730
+    }
+  ],
+  "programs": [
+    {
+      "program": "RUSSIA-EO14024",
+      "count": 4722
+    },
+    {
+      "program": "UKRAINE-EO13662",
+      "count": 430
+    },
+    {
+      "program": "CYBER2",
+      "count": 147
+    },
+    {
+      "program": "UKRAINE-EO13661",
+      "count": 132
+    },
+    {
+      "program": "NPWMD",
+      "count": 63
+    },
+    {
+      "program": "CAATSA - RUSSIA",
+      "count": 60
+    },
+    {
+      "program": "ELECTION-EO13848",
+      "count": 50
+    },
+    {
+      "program": "UKRAINE-EO13685",
+      "count": 47
+    },
+    {
+      "program": "CYBER4",
+      "count": 31
+    },
+    {
+      "program": "SDGT",
+      "count": 28
+    },
+    {
+      "program": "UKRAINE-EO13660",
+      "count": 28
+    },
+    {
+      "program": "DPRK3",
+      "count": 25
+    }
+  ],
+  "lists": [
+    {
+      "list_name": "SDN List",
+      "count": 5205
+    },
+    {
+      "list_name": "Consolidated List",
+      "count": 257
+    },
+    {
+      "list_name": "Sectoral Sanctions Identifications List",
+      "count": 251
+    },
+    {
+      "list_name": "Non-SDN Menu-Based Sanctions List",
+      "count": 9
+    }
+  ],
+  "entities": [
+    {
+      "id": 22554,
+      "name": "'WOLF' HOLDING OF SECURITY STRUCTURES",
+      "entity_type": "Entity",
+      "programs": "UKRAINE-EO13660",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35137,
+      "name": "0DAY TECHNOLOGIES",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47647,
+      "name": "148SH LIMITED TRADE DEVELOPMENT",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37828,
+      "name": "234TH GUARDS AIRBORNE ASSAULT REGIMENT",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30722,
+      "name": "27TH SCIENTIFIC CENTER",
+      "entity_type": "Entity",
+      "programs": "NPWMD,RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30724,
+      "name": "33RD SCIENTIFIC RESEARCH AND TESTING INSTITUTE",
+      "entity_type": "Entity",
+      "programs": "NPWMD,RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47525,
+      "name": "3D.RU",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47685,
+      "name": "3DATA",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50018,
+      "name": "46TH CENTRAL RESEARCH AND DEVELOPMENT INSTITUTE OF THE MINISTRY OF DEFENSE",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44978,
+      "name": "61ST ARMORED VEHICLE REPAIR PLANT JOINT STOCK COMPANY",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37829,
+      "name": "64TH GUARDS DETACHED MOTOR RIFLE BRIGADE",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44979,
+      "name": "71ST AUTOMOTIVE AND ARMORED VEHICLE REPAIR PLANT FEDERAL STATE OWNED INSTITUTION OF THE RUSSIAN FEDERATION MINISTRY OF DEFENSE",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44980,
+      "name": "72ND AUTOMOTIVE AND ARMORED VEHICLE REPAIR PLANT FEDERAL STATE OWNED INSTITUTION OF THE RUSSIAN FEDERATION MINISTRY OF DEFENSE",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37827,
+      "name": "76TH GUARDS AIRBORNE ASSAULT CHERNIGOV RED BANNER ORDER OF SUVOROV DIVISION",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 18792,
+      "name": "90 EKSPERIMENTALNY ZAVOD OAO",
+      "entity_type": "Entity",
+      "programs": "UKRAINE-EO13662",
+      "lists": "Consolidated List,Sectoral Sanctions Identifications List"
+    },
+    {
+      "id": 40192,
+      "name": "924TH STATE CENTER FOR UAV AVIATION",
+      "entity_type": "Entity",
+      "programs": "IRAN-CON-ARMS-EO,RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 45928,
+      "name": "A LEVEL AEROSYSTEMS CST LLC",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 43233,
+      "name": "A.E. NUDELMAN PRECISION ENGINEERING DESIGN BUREAU JOINT STOCK COMPANY",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44082,
+      "name": "A.M. PROKHOROV GENERAL PHYSICS INSTITUTE RUSSIAN ACADEMY OF SCIENCES",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54630,
+      "name": "A7 AGENT LIMITED LIABILITY COMPANY",
+      "entity_type": "Entity",
+      "programs": "CYBER4",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54628,
+      "name": "A7 LIMITED LIABILITY COMPANY",
+      "entity_type": "Entity",
+      "programs": "CYBER4",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54629,
+      "name": "A71 LIMITED LIABILITY COMPANY",
+      "entity_type": "Entity",
+      "programs": "CYBER4",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35535,
+      "name": "ABAKAROV, Khizri Magomedovich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47715,
+      "name": "ABDRAKHMANOV, Farid Khabibullovich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 43234,
+      "name": "ABRAMCHENKO, Viktoriya Valeriyevna",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 36757,
+      "name": "ABRAMOV, Ivan Nikolayevich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23555,
+      "name": "ABRAMOV, Valeri Vyacheslavovich",
+      "entity_type": "Individual",
+      "programs": "UKRAINE-EO13685",
+      "lists": "SDN List"
+    },
+    {
+      "id": 45353,
+      "name": "ABS ELECTROTEKHNIKA LLC",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30606,
+      "name": "ABSOLUTE CHAMPIONSHIP AKHMAT",
+      "entity_type": "Entity",
+      "programs": "GLOMAG",
+      "lists": "SDN List"
+    },
+    {
+      "id": 38164,
+      "name": "ACADEMICIAN A.L. MINTS RADIOTECHNICAL INSTITUTE JOINT STOCK COMPANY",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 19692,
+      "name": "ACHIM DEVELOPMENT, OOO",
+      "entity_type": "Entity",
+      "programs": "UKRAINE-EO13662",
+      "lists": "Consolidated List,Sectoral Sanctions Identifications List"
+    },
+    {
+      "id": 38220,
+      "name": "ADORABELLA AG",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 36376,
+      "name": "ADVANCED RESEARCH FOUNDATION",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024,UKRAINE-EO13662",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44299,
+      "name": "AEM PROPULSION",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54566,
+      "name": "AEZA GROUP LLC",
+      "entity_type": "Entity",
+      "programs": "CAATSA - RUSSIA,CYBER4",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54568,
+      "name": "AEZA LOGISTIC LLC",
+      "entity_type": "Entity",
+      "programs": "CAATSA - RUSSIA,CYBER4",
+      "lists": "SDN List"
+    },
+    {
+      "id": 42035,
+      "name": "AF TELECOM HOLDING LIMITED LIABILITY COMPANY",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 36764,
+      "name": "AFANASEVA, Yelena Vladimirovna",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 46756,
+      "name": "AFANASIEV, Igor Yurievich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 36762,
+      "name": "AFANASOV, Mikhail Alexandrovich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37838,
+      "name": "AFANASYEV, Dmitriy Valeryevich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23956,
+      "name": "AFANASYEV, Sergei",
+      "entity_type": "Individual",
+      "programs": "CAATSA - RUSSIA",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50581,
+      "name": "AFANASYEVA, Elena Mikhaylovna",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 31167,
+      "name": "AFANASYEVA, Yulia Andreevna",
+      "entity_type": "Individual",
+      "programs": "CYBER2,ELECTION-EO13848,UKRAINE-EO13661",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35219,
+      "name": "AFONIN, Yuriy Vyacheslavovich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40577,
+      "name": "AFRICA POLITOLOGY",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35536,
+      "name": "AGAYEV, Bekkhan Vakhayevich",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44685,
+      "name": "AGEEVA, Irina Anatolyevna",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50794,
+      "name": "AGM SYSTEMS LLC",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 24225,
+      "name": "AGROHOLDING KUBAN",
+      "entity_type": "Entity",
+      "programs": "UKRAINE-EO13661,UKRAINE-EO13662",
+      "lists": "SDN List"
+    }
+  ]
+}

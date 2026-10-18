@@ -1,0 +1,428 @@
+{
+  "types": [
+    {
+      "entity_type": "Entity",
+      "count": 959
+    },
+    {
+      "entity_type": "Individual",
+      "count": 707
+    }
+  ],
+  "programs": [
+    {
+      "program": "IFSR",
+      "count": 750
+    },
+    {
+      "program": "NPWMD",
+      "count": 432
+    },
+    {
+      "program": "SDGT",
+      "count": 366
+    },
+    {
+      "program": "IRAN",
+      "count": 278
+    },
+    {
+      "program": "IRGC",
+      "count": 216
+    },
+    {
+      "program": "IRAN-HR",
+      "count": 208
+    },
+    {
+      "program": "IRAN-EO13902",
+      "count": 176
+    },
+    {
+      "program": "IRAN-EO13876",
+      "count": 110
+    },
+    {
+      "program": "IRAN-EO13846",
+      "count": 58
+    },
+    {
+      "program": "IRAN-EO13871",
+      "count": 34
+    },
+    {
+      "program": "IRAN-CON-ARMS-EO",
+      "count": 33
+    },
+    {
+      "program": "IRAN-TRA",
+      "count": 25
+    }
+  ],
+  "lists": [
+    {
+      "list_name": "SDN List",
+      "count": 1666
+    },
+    {
+      "list_name": "Consolidated List",
+      "count": 1
+    },
+    {
+      "list_name": "Sectoral Sanctions Identifications List",
+      "count": 1
+    }
+  ],
+  "entities": [
+    {
+      "id": 38736,
+      "name": "15 KHORDAD FOUNDATION",
+      "entity_type": "Entity",
+      "programs": "IFSR,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 10863,
+      "name": "7TH OF TIR",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44025,
+      "name": "A'INI, Husayn",
+      "entity_type": "Individual",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 46349,
+      "name": "A'ZAMI, Majid",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25887,
+      "name": "A.S.P. BUILDERS",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 29522,
+      "name": "ABADAN OIL REFINING COMPANY",
+      "entity_type": "Entity",
+      "programs": "IFSR,IRAN-EO13846,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30871,
+      "name": "ABADAN POWER GENERATION COMPANY",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13876",
+      "lists": "SDN List"
+    },
+    {
+      "id": 57945,
+      "name": "ABADI, Shokufeh Rostam",
+      "entity_type": "Individual",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58239,
+      "name": "ABAN TETHER EXCHANGE",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26392,
+      "name": "ABBASI, Hossein",
+      "entity_type": "Individual",
+      "programs": "HRIT-IR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 56757,
+      "name": "ABBASPOUR QOMI, Bashir",
+      "entity_type": "Individual",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30883,
+      "name": "ABBATAY, Muhammad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48731,
+      "name": "ABDI ASJERD, Abbas",
+      "entity_type": "Individual",
+      "programs": "IFSR,IRGC,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48736,
+      "name": "ABDI ASJERD, Zahra",
+      "entity_type": "Individual",
+      "programs": "IFSR,IRGC,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50667,
+      "name": "ABDI, Ali",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 27856,
+      "name": "ABDOLLAHI, Ali",
+      "entity_type": "Individual",
+      "programs": "IRAN-CON-ARMS-EO,IRAN-EO13876",
+      "lists": "SDN List"
+    },
+    {
+      "id": 49847,
+      "name": "ABDOLLAHI, Mohammad",
+      "entity_type": "Individual",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 41201,
+      "name": "ABDOLLAHINEJAD, Bahram",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 44922,
+      "name": "ABDOLLAHPOUR, Mohammad",
+      "entity_type": "Individual",
+      "programs": "IFSR,IRAN-HR,IRGC",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50559,
+      "name": "ABDOLRAHIMI, Mohammad Hosein",
+      "entity_type": "Individual",
+      "programs": "ELECTION-EO13848",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48726,
+      "name": "ABDULAHI FARD, Hojat",
+      "entity_type": "Individual",
+      "programs": "IFSR,RUSSIA-EO14024,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 45065,
+      "name": "ABEDINEJAD, Alireza",
+      "entity_type": "Individual",
+      "programs": "IRAN-EO13846",
+      "lists": "SDN List"
+    },
+    {
+      "id": 57050,
+      "name": "ABEDINI, Mohammad",
+      "entity_type": "Individual",
+      "programs": "IRAN-CON-ARMS-EO",
+      "lists": "SDN List"
+    },
+    {
+      "id": 52353,
+      "name": "ABEDININAJAFABADI, Mohammad",
+      "entity_type": "Individual",
+      "programs": "IFSR,IRGC,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 29816,
+      "name": "ABEDSHAHI, Omid",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 45002,
+      "name": "ABEDZADEH, Abdolreza",
+      "entity_type": "Individual",
+      "programs": "IFSR,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 58406,
+      "name": "ABHAR POLYMER COMPOUNDS CO.",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13846",
+      "lists": "SDN List"
+    },
+    {
+      "id": 39257,
+      "name": "ABNOUSH, Salar",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 33595,
+      "name": "ABOUTALEBI, Yousef",
+      "entity_type": "Individual",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 29822,
+      "name": "ABOUTORABI, Seyed Hamid",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 42537,
+      "name": "ABSALAN, Parviz",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR,IRGC",
+      "lists": "SDN List"
+    },
+    {
+      "id": 56028,
+      "name": "ABTAHI, Seyyed Ali",
+      "entity_type": "Individual",
+      "programs": "IFSR,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 26565,
+      "name": "ABU REIHAN GROUP",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 46210,
+      "name": "ABU SHARIF, Nasser",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48651,
+      "name": "ABUTALEBI, Ali Asghar",
+      "entity_type": "Individual",
+      "programs": "IFSR,IRGC,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48650,
+      "name": "ABUTALEBI, Mohammad Sadegh",
+      "entity_type": "Individual",
+      "programs": "IFSR,IRGC,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 17587,
+      "name": "ABYSSEC",
+      "entity_type": "Entity",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 55291,
+      "name": "ABZAR-E DAGHIGH-E TAHA COMPANY",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 56970,
+      "name": "ADAK PARGAS PARS TRADING COMPANY",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 29900,
+      "name": "ADEL ABAD PRISON",
+      "entity_type": "Entity",
+      "programs": "CAATSA - IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 42536,
+      "name": "ADINEHVAND, Salman",
+      "entity_type": "Individual",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54154,
+      "name": "ADVANCED FIBER DEVELOPMENT COMPANY",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15098,
+      "name": "ADVANCED INFORMATION AND COMMUNICATION TECHNOLOGY CENTER",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 29849,
+      "name": "ADVANCED PERSISTENT THREAT 39",
+      "entity_type": "Entity",
+      "programs": "IRAN-HR",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25647,
+      "name": "ADVANCED TECHNOLOGIES COMPANY OF IRAN",
+      "entity_type": "Entity",
+      "programs": "IFSR,IRAN,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25644,
+      "name": "AEOI BASIJ RESISTANCE CENTER",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 9348,
+      "name": "AEROSPACE INDUSTRIES ORGANIZATION",
+      "entity_type": "Entity",
+      "programs": "IFSR,IRAN-CON-ARMS-EO,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37957,
+      "name": "AFKAR SYSTEM YAZD COMPANY",
+      "entity_type": "Entity",
+      "programs": "CYBER2,IFSR,IRGC",
+      "lists": "SDN List"
+    },
+    {
+      "id": 38318,
+      "name": "AGHA AHMADI, Mohammad",
+      "entity_type": "Individual",
+      "programs": "CYBER2,IFSR,IRGC",
+      "lists": "SDN List"
+    },
+    {
+      "id": 28978,
+      "name": "AGHA'I, Majid",
+      "entity_type": "Individual",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    }
+  ]
+}

@@ -1,0 +1,1276 @@
+[
+  {
+    "country": "Russia",
+    "total": 5390,
+    "individuals": 1730,
+    "organizations": 3660,
+    "vessels": 0
+  },
+  {
+    "country": "Iran",
+    "total": 1666,
+    "individuals": 707,
+    "organizations": 959,
+    "vessels": 0
+  },
+  {
+    "country": "China",
+    "total": 1262,
+    "individuals": 276,
+    "organizations": 986,
+    "vessels": 0
+  },
+  {
+    "country": "Mexico",
+    "total": 1172,
+    "individuals": 643,
+    "organizations": 529,
+    "vessels": 0
+  },
+  {
+    "country": "United Arab Emirates",
+    "total": 759,
+    "individuals": 189,
+    "organizations": 570,
+    "vessels": 0
+  },
+  {
+    "country": "Turkey",
+    "total": 382,
+    "individuals": 142,
+    "organizations": 240,
+    "vessels": 0
+  },
+  {
+    "country": "Lebanon",
+    "total": 363,
+    "individuals": 180,
+    "organizations": 183,
+    "vessels": 0
+  },
+  {
+    "country": "Colombia",
+    "total": 358,
+    "individuals": 169,
+    "organizations": 189,
+    "vessels": 0
+  },
+  {
+    "country": "Syria",
+    "total": 300,
+    "individuals": 187,
+    "organizations": 113,
+    "vessels": 0
+  },
+  {
+    "country": "Belarus",
+    "total": 260,
+    "individuals": 147,
+    "organizations": 113,
+    "vessels": 0
+  },
+  {
+    "country": "Venezuela",
+    "total": 252,
+    "individuals": 199,
+    "organizations": 53,
+    "vessels": 0
+  },
+  {
+    "country": "Ukraine",
+    "total": 243,
+    "individuals": 143,
+    "organizations": 100,
+    "vessels": 0
+  },
+  {
+    "country": "Korea, North",
+    "total": 232,
+    "individuals": 64,
+    "organizations": 168,
+    "vessels": 0
+  },
+  {
+    "country": "Iraq",
+    "total": 193,
+    "individuals": 142,
+    "organizations": 51,
+    "vessels": 0
+  },
+  {
+    "country": "United Kingdom",
+    "total": 192,
+    "individuals": 73,
+    "organizations": 119,
+    "vessels": 0
+  },
+  {
+    "country": "Burma",
+    "total": 189,
+    "individuals": 125,
+    "organizations": 64,
+    "vessels": 0
+  },
+  {
+    "country": "Pakistan",
+    "total": 169,
+    "individuals": 109,
+    "organizations": 60,
+    "vessels": 0
+  },
+  {
+    "country": "India",
+    "total": 156,
+    "individuals": 40,
+    "organizations": 116,
+    "vessels": 0
+  },
+  {
+    "country": "Cambodia",
+    "total": 155,
+    "individuals": 26,
+    "organizations": 129,
+    "vessels": 0
+  },
+  {
+    "country": "Marshall Islands",
+    "total": 153,
+    "individuals": 0,
+    "organizations": 153,
+    "vessels": 0
+  },
+  {
+    "country": "Panama",
+    "total": 151,
+    "individuals": 11,
+    "organizations": 140,
+    "vessels": 0
+  },
+  {
+    "country": "Yemen",
+    "total": 138,
+    "individuals": 83,
+    "organizations": 55,
+    "vessels": 0
+  },
+  {
+    "country": "Cyprus",
+    "total": 133,
+    "individuals": 17,
+    "organizations": 116,
+    "vessels": 0
+  },
+  {
+    "country": "Germany",
+    "total": 130,
+    "individuals": 40,
+    "organizations": 90,
+    "vessels": 0
+  },
+  {
+    "country": "Singapore",
+    "total": 122,
+    "individuals": 25,
+    "organizations": 97,
+    "vessels": 0
+  },
+  {
+    "country": "Cuba",
+    "total": 120,
+    "individuals": 44,
+    "organizations": 76,
+    "vessels": 0
+  },
+  {
+    "country": "Bulgaria",
+    "total": 92,
+    "individuals": 12,
+    "organizations": 80,
+    "vessels": 0
+  },
+  {
+    "country": "Congo, Democratic Republic of the",
+    "total": 87,
+    "individuals": 46,
+    "organizations": 41,
+    "vessels": 0
+  },
+  {
+    "country": "Switzerland",
+    "total": 81,
+    "individuals": 37,
+    "organizations": 44,
+    "vessels": 0
+  },
+  {
+    "country": "Italy",
+    "total": 81,
+    "individuals": 60,
+    "organizations": 21,
+    "vessels": 0
+  },
+  {
+    "country": "Nicaragua",
+    "total": 80,
+    "individuals": 58,
+    "organizations": 22,
+    "vessels": 0
+  },
+  {
+    "country": "Afghanistan",
+    "total": 80,
+    "individuals": 45,
+    "organizations": 35,
+    "vessels": 0
+  },
+  {
+    "country": "United States",
+    "total": 76,
+    "individuals": 13,
+    "organizations": 62,
+    "vessels": 0
+  },
+  {
+    "country": "Thailand",
+    "total": 74,
+    "individuals": 28,
+    "organizations": 46,
+    "vessels": 0
+  },
+  {
+    "country": "Somalia",
+    "total": 68,
+    "individuals": 59,
+    "organizations": 9,
+    "vessels": 0
+  },
+  {
+    "country": "Hong Kong",
+    "total": 68,
+    "individuals": 21,
+    "organizations": 47,
+    "vessels": 0
+  },
+  {
+    "country": "Guatemala",
+    "total": 65,
+    "individuals": 38,
+    "organizations": 27,
+    "vessels": 0
+  },
+  {
+    "country": "Netherlands",
+    "total": 64,
+    "individuals": 22,
+    "organizations": 42,
+    "vessels": 0
+  },
+  {
+    "country": "Virgin Islands, British",
+    "total": 57,
+    "individuals": 1,
+    "organizations": 56,
+    "vessels": 0
+  },
+  {
+    "country": "Malta",
+    "total": 56,
+    "individuals": 7,
+    "organizations": 49,
+    "vessels": 0
+  },
+  {
+    "country": "Spain",
+    "total": 52,
+    "individuals": 21,
+    "organizations": 31,
+    "vessels": 0
+  },
+  {
+    "country": "Liberia",
+    "total": 52,
+    "individuals": 5,
+    "organizations": 47,
+    "vessels": 0
+  },
+  {
+    "country": "Serbia",
+    "total": 50,
+    "individuals": 19,
+    "organizations": 31,
+    "vessels": 0
+  },
+  {
+    "country": "Maldives",
+    "total": 50,
+    "individuals": 20,
+    "organizations": 30,
+    "vessels": 0
+  },
+  {
+    "country": "South Africa",
+    "total": 48,
+    "individuals": 21,
+    "organizations": 27,
+    "vessels": 0
+  },
+  {
+    "country": "Sudan",
+    "total": 46,
+    "individuals": 22,
+    "organizations": 24,
+    "vessels": 0
+  },
+  {
+    "country": "Malaysia",
+    "total": 44,
+    "individuals": 7,
+    "organizations": 37,
+    "vessels": 0
+  },
+  {
+    "country": "France",
+    "total": 44,
+    "individuals": 22,
+    "organizations": 22,
+    "vessels": 0
+  },
+  {
+    "country": "Seychelles",
+    "total": 43,
+    "individuals": 0,
+    "organizations": 43,
+    "vessels": 0
+  },
+  {
+    "country": "Palestinian",
+    "total": 43,
+    "individuals": 35,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Canada",
+    "total": 41,
+    "individuals": 10,
+    "organizations": 31,
+    "vessels": 0
+  },
+  {
+    "country": "Belgium",
+    "total": 40,
+    "individuals": 19,
+    "organizations": 21,
+    "vessels": 0
+  },
+  {
+    "country": "Peru",
+    "total": 35,
+    "individuals": 7,
+    "organizations": 28,
+    "vessels": 0
+  },
+  {
+    "country": "Taiwan",
+    "total": 34,
+    "individuals": 10,
+    "organizations": 24,
+    "vessels": 0
+  },
+  {
+    "country": "South Sudan",
+    "total": 33,
+    "individuals": 19,
+    "organizations": 14,
+    "vessels": 0
+  },
+  {
+    "country": "Oman",
+    "total": 32,
+    "individuals": 10,
+    "organizations": 22,
+    "vessels": 0
+  },
+  {
+    "country": "Jordan",
+    "total": 31,
+    "individuals": 24,
+    "organizations": 7,
+    "vessels": 0
+  },
+  {
+    "country": "Brazil",
+    "total": 30,
+    "individuals": 19,
+    "organizations": 11,
+    "vessels": 0
+  },
+  {
+    "country": "Libya",
+    "total": 29,
+    "individuals": 22,
+    "organizations": 7,
+    "vessels": 0
+  },
+  {
+    "country": "Kosovo",
+    "total": 29,
+    "individuals": 15,
+    "organizations": 14,
+    "vessels": 0
+  },
+  {
+    "country": "Ecuador",
+    "total": 29,
+    "individuals": 12,
+    "organizations": 17,
+    "vessels": 0
+  },
+  {
+    "country": "Honduras",
+    "total": 28,
+    "individuals": 9,
+    "organizations": 19,
+    "vessels": 0
+  },
+  {
+    "country": "Egypt",
+    "total": 28,
+    "individuals": 14,
+    "organizations": 14,
+    "vessels": 0
+  },
+  {
+    "country": "Nigeria",
+    "total": 27,
+    "individuals": 15,
+    "organizations": 12,
+    "vessels": 0
+  },
+  {
+    "country": "Central African Republic",
+    "total": 27,
+    "individuals": 18,
+    "organizations": 9,
+    "vessels": 0
+  },
+  {
+    "country": "Dominican Republic",
+    "total": 26,
+    "individuals": 13,
+    "organizations": 13,
+    "vessels": 0
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "total": 26,
+    "individuals": 13,
+    "organizations": 13,
+    "vessels": 0
+  },
+  {
+    "country": "Uzbekistan",
+    "total": 25,
+    "individuals": 14,
+    "organizations": 11,
+    "vessels": 0
+  },
+  {
+    "country": "Kyrgyzstan",
+    "total": 25,
+    "individuals": 2,
+    "organizations": 23,
+    "vessels": 0
+  },
+  {
+    "country": "Indonesia",
+    "total": 25,
+    "individuals": 12,
+    "organizations": 13,
+    "vessels": 0
+  },
+  {
+    "country": "Mali",
+    "total": 24,
+    "individuals": 20,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Vietnam",
+    "total": 23,
+    "individuals": 11,
+    "organizations": 12,
+    "vessels": 0
+  },
+  {
+    "country": "Saudi Arabia",
+    "total": 23,
+    "individuals": 13,
+    "organizations": 10,
+    "vessels": 0
+  },
+  {
+    "country": "Liechtenstein",
+    "total": 23,
+    "individuals": 8,
+    "organizations": 15,
+    "vessels": 0
+  },
+  {
+    "country": "Japan",
+    "total": 22,
+    "individuals": 8,
+    "organizations": 14,
+    "vessels": 0
+  },
+  {
+    "country": "Greece",
+    "total": 21,
+    "individuals": 7,
+    "organizations": 14,
+    "vessels": 0
+  },
+  {
+    "country": "Zimbabwe",
+    "total": 20,
+    "individuals": 15,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Haiti",
+    "total": 20,
+    "individuals": 17,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "The Gambia",
+    "total": 19,
+    "individuals": 2,
+    "organizations": 17,
+    "vessels": 0
+  },
+  {
+    "country": "Qatar",
+    "total": 19,
+    "individuals": 14,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Kenya",
+    "total": 19,
+    "individuals": 13,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Costa Rica",
+    "total": 19,
+    "individuals": 11,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Argentina",
+    "total": 19,
+    "individuals": 7,
+    "organizations": 12,
+    "vessels": 0
+  },
+  {
+    "country": "Uganda",
+    "total": 18,
+    "individuals": 12,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Philippines",
+    "total": 18,
+    "individuals": 13,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Cayman Islands",
+    "total": 18,
+    "individuals": 1,
+    "organizations": 17,
+    "vessels": 0
+  },
+  {
+    "country": "Rwanda",
+    "total": 17,
+    "individuals": 9,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Slovakia",
+    "total": 16,
+    "individuals": 5,
+    "organizations": 11,
+    "vessels": 0
+  },
+  {
+    "country": "Israel",
+    "total": 16,
+    "individuals": 6,
+    "organizations": 10,
+    "vessels": 0
+  },
+  {
+    "country": "Georgia",
+    "total": 16,
+    "individuals": 9,
+    "organizations": 7,
+    "vessels": 0
+  },
+  {
+    "country": "Estonia",
+    "total": 16,
+    "individuals": 3,
+    "organizations": 13,
+    "vessels": 0
+  },
+  {
+    "country": "Austria",
+    "total": 16,
+    "individuals": 6,
+    "organizations": 10,
+    "vessels": 0
+  },
+  {
+    "country": "Paraguay",
+    "total": 15,
+    "individuals": 7,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Kuwait",
+    "total": 15,
+    "individuals": 7,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Finland",
+    "total": 15,
+    "individuals": 4,
+    "organizations": 11,
+    "vessels": 0
+  },
+  {
+    "country": "Bangladesh",
+    "total": 15,
+    "individuals": 7,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Latvia",
+    "total": 14,
+    "individuals": 5,
+    "organizations": 9,
+    "vessels": 0
+  },
+  {
+    "country": "Kazakhstan",
+    "total": 14,
+    "individuals": 0,
+    "organizations": 14,
+    "vessels": 0
+  },
+  {
+    "country": "Algeria",
+    "total": 14,
+    "individuals": 7,
+    "organizations": 7,
+    "vessels": 0
+  },
+  {
+    "country": "Sweden",
+    "total": 13,
+    "individuals": 9,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Poland",
+    "total": 13,
+    "individuals": 4,
+    "organizations": 9,
+    "vessels": 0
+  },
+  {
+    "country": "Moldova",
+    "total": 13,
+    "individuals": 3,
+    "organizations": 10,
+    "vessels": 0
+  },
+  {
+    "country": "North Macedonia, The Republic of",
+    "total": 12,
+    "individuals": 6,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Guyana",
+    "total": 12,
+    "individuals": 8,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "El Salvador",
+    "total": 11,
+    "individuals": 8,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Angola",
+    "total": 11,
+    "individuals": 3,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Slovenia",
+    "total": 10,
+    "individuals": 4,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Luxembourg",
+    "total": 10,
+    "individuals": 1,
+    "organizations": 9,
+    "vessels": 0
+  },
+  {
+    "country": "Czech Republic",
+    "total": 10,
+    "individuals": 1,
+    "organizations": 9,
+    "vessels": 0
+  },
+  {
+    "country": "Benin",
+    "total": 10,
+    "individuals": 2,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Romania",
+    "total": 9,
+    "individuals": 2,
+    "organizations": 7,
+    "vessels": 0
+  },
+  {
+    "country": "Palau",
+    "total": 9,
+    "individuals": 5,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Hungary",
+    "total": 9,
+    "individuals": 4,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Tunisia",
+    "total": 8,
+    "individuals": 5,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Sierra Leone",
+    "total": 8,
+    "individuals": 2,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Saint Kitts and Nevis",
+    "total": 8,
+    "individuals": 2,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Mozambique",
+    "total": 8,
+    "individuals": 4,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Laos",
+    "total": 8,
+    "individuals": 4,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Jersey",
+    "total": 8,
+    "individuals": 0,
+    "organizations": 8,
+    "vessels": 0
+  },
+  {
+    "country": "Ireland",
+    "total": 8,
+    "individuals": 1,
+    "organizations": 7,
+    "vessels": 0
+  },
+  {
+    "country": "Chile",
+    "total": 8,
+    "individuals": 4,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Azerbaijan",
+    "total": 8,
+    "individuals": 2,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Albania",
+    "total": 8,
+    "individuals": 3,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Montenegro",
+    "total": 7,
+    "individuals": 4,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Lithuania",
+    "total": 7,
+    "individuals": 4,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Cote d Ivoire",
+    "total": 7,
+    "individuals": 3,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Armenia",
+    "total": 7,
+    "individuals": 1,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Tajikistan",
+    "total": 6,
+    "individuals": 1,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Suriname",
+    "total": 6,
+    "individuals": 0,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Jamaica",
+    "total": 6,
+    "individuals": 1,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Gibraltar",
+    "total": 6,
+    "individuals": 0,
+    "organizations": 6,
+    "vessels": 0
+  },
+  {
+    "country": "Belize",
+    "total": 6,
+    "individuals": 1,
+    "organizations": 5,
+    "vessels": 0
+  },
+  {
+    "country": "Australia",
+    "total": 6,
+    "individuals": 3,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Zambia",
+    "total": 5,
+    "individuals": 3,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Turkmenistan",
+    "total": 5,
+    "individuals": 1,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Norway",
+    "total": 5,
+    "individuals": 2,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "New Zealand",
+    "total": 5,
+    "individuals": 1,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Korea, South",
+    "total": 5,
+    "individuals": 2,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Ethiopia",
+    "total": 5,
+    "individuals": 3,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Croatia",
+    "total": 5,
+    "individuals": 1,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Bahrain",
+    "total": 5,
+    "individuals": 1,
+    "organizations": 4,
+    "vessels": 0
+  },
+  {
+    "country": "Sri Lanka",
+    "total": 4,
+    "individuals": 2,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Monaco",
+    "total": 4,
+    "individuals": 3,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Eritrea",
+    "total": 4,
+    "individuals": 2,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Djibouti",
+    "total": 4,
+    "individuals": 1,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Burkina Faso",
+    "total": 4,
+    "individuals": 1,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Bolivia",
+    "total": 4,
+    "individuals": 1,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Uruguay",
+    "total": 3,
+    "individuals": 0,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Tanzania",
+    "total": 3,
+    "individuals": 0,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Saint Vincent and the Grenadines",
+    "total": 3,
+    "individuals": 0,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Portugal",
+    "total": 3,
+    "individuals": 1,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Namibia",
+    "total": 3,
+    "individuals": 1,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Mongolia",
+    "total": 3,
+    "individuals": 1,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Ghana",
+    "total": 3,
+    "individuals": 1,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Denmark",
+    "total": 3,
+    "individuals": 0,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "Congo, Republic of the",
+    "total": 3,
+    "individuals": 2,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Barbados",
+    "total": 3,
+    "individuals": 0,
+    "organizations": 3,
+    "vessels": 0
+  },
+  {
+    "country": "West Bank",
+    "total": 2,
+    "individuals": 0,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Vanuatu",
+    "total": 2,
+    "individuals": 1,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Niger",
+    "total": 2,
+    "individuals": 1,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Morocco",
+    "total": 2,
+    "individuals": 2,
+    "organizations": 0,
+    "vessels": 0
+  },
+  {
+    "country": "Mauritania",
+    "total": 2,
+    "individuals": 2,
+    "organizations": 0,
+    "vessels": 0
+  },
+  {
+    "country": "Man, Isle of",
+    "total": 2,
+    "individuals": 0,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Macau",
+    "total": 2,
+    "individuals": 1,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Guinea",
+    "total": 2,
+    "individuals": 1,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Guernsey",
+    "total": 2,
+    "individuals": 0,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Equatorial Guinea",
+    "total": 2,
+    "individuals": 2,
+    "organizations": 0,
+    "vessels": 0
+  },
+  {
+    "country": "Bermuda",
+    "total": 2,
+    "individuals": 0,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Bahamas, The",
+    "total": 2,
+    "individuals": 0,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Antigua and Barbuda",
+    "total": 2,
+    "individuals": 0,
+    "organizations": 2,
+    "vessels": 0
+  },
+  {
+    "country": "Trinidad and Tobago",
+    "total": 1,
+    "individuals": 1,
+    "organizations": 0,
+    "vessels": 0
+  },
+  {
+    "country": "Senegal",
+    "total": 1,
+    "individuals": 1,
+    "organizations": 0,
+    "vessels": 0
+  },
+  {
+    "country": "San Marino",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Samoa",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Region: Northern Mali",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Region: Gaza",
+    "total": 1,
+    "individuals": 1,
+    "organizations": 0,
+    "vessels": 0
+  },
+  {
+    "country": "Mauritius",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Iceland",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Dominica",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Curacao",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Comoros",
+    "total": 1,
+    "individuals": 0,
+    "organizations": 1,
+    "vessels": 0
+  },
+  {
+    "country": "Aruba",
+    "total": 1,
+    "individuals": 1,
+    "organizations": 0,
+    "vessels": 0
+  }
+]

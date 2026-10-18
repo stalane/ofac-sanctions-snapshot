@@ -1,0 +1,440 @@
+{
+  "types": [
+    {
+      "entity_type": "Entity",
+      "count": 986
+    },
+    {
+      "entity_type": "Individual",
+      "count": 276
+    }
+  ],
+  "programs": [
+    {
+      "program": "RUSSIA-EO14024",
+      "count": 294
+    },
+    {
+      "program": "IFSR",
+      "count": 243
+    },
+    {
+      "program": "NPWMD",
+      "count": 215
+    },
+    {
+      "program": "SDGT",
+      "count": 139
+    },
+    {
+      "program": "IRAN-EO13902",
+      "count": 127
+    },
+    {
+      "program": "IRAN-EO13846",
+      "count": 97
+    },
+    {
+      "program": "CMIC-EO13959",
+      "count": 65
+    },
+    {
+      "program": "ILLICIT-DRUGS-EO14059",
+      "count": 54
+    },
+    {
+      "program": "DPRK4",
+      "count": 47
+    },
+    {
+      "program": "TCO",
+      "count": 39
+    },
+    {
+      "program": "DPRK3",
+      "count": 36
+    },
+    {
+      "program": "UKRAINE-EO13662",
+      "count": 35
+    }
+  ],
+  "lists": [
+    {
+      "list_name": "SDN List",
+      "count": 1173
+    },
+    {
+      "list_name": "Consolidated List",
+      "count": 94
+    },
+    {
+      "list_name": "Non-SDN CMIC List",
+      "count": 65
+    },
+    {
+      "list_name": "Non-SDN Menu-Based Sanctions List",
+      "count": 23
+    },
+    {
+      "list_name": "Sectoral Sanctions Identifications List",
+      "count": 5
+    },
+    {
+      "list_name": "CAPTA List",
+      "count": 1
+    }
+  ],
+  "entities": [
+    {
+      "id": 43338,
+      "name": "110TH RESEARCH CENTER",
+      "entity_type": "Entity",
+      "programs": "DPRK2",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50923,
+      "name": "3K GROUP LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 49498,
+      "name": "3NOD DIGITAL HONG KONG LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 22684,
+      "name": "ABASCIENCE TECH CO. LTD.",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 55673,
+      "name": "ABGO TRADING LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 52224,
+      "name": "ABINGO DISTRIBUTORS LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50920,
+      "name": "ABLEFAST LOGISTICS SHENZHEN LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 51262,
+      "name": "ACE ELECTRONIC HK CO., LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50129,
+      "name": "ACE ERA CO LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50944,
+      "name": "ACS SYSTEMS LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47357,
+      "name": "ADVANTAGE TRADING CO., LIMITED",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 57597,
+      "name": "AE INTERNATIONAL TRADE CO LIMITED",
+      "entity_type": "Entity",
+      "programs": "IFSR,NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 30902,
+      "name": "AERO ENGINE CORPORATION OF CHINA",
+      "entity_type": "Entity",
+      "programs": "CMIC-EO13959",
+      "lists": "Consolidated List,Non-SDN CMIC List"
+    },
+    {
+      "id": 18929,
+      "name": "AERO SKYONE CO. LIMITED",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 32084,
+      "name": "AEROSPACE CH UAV CO., LTD",
+      "entity_type": "Entity",
+      "programs": "CMIC-EO13959",
+      "lists": "Consolidated List,Non-SDN CMIC List"
+    },
+    {
+      "id": 32073,
+      "name": "AEROSPACE COMMUNICATIONS HOLDINGS GROUP COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "CMIC-EO13959",
+      "lists": "Consolidated List,Non-SDN CMIC List"
+    },
+    {
+      "id": 32129,
+      "name": "AEROSUN CORPORATION",
+      "entity_type": "Entity",
+      "programs": "CMIC-EO13959",
+      "lists": "Consolidated List,Non-SDN CMIC List"
+    },
+    {
+      "id": 51287,
+      "name": "AFOX CORPORATION LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 57783,
+      "name": "AGILITY SHIPPING LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13846",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50358,
+      "name": "AGU INFORMATION TECHNOLOGY CO LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 20520,
+      "name": "AIR KORYO",
+      "entity_type": "Entity",
+      "programs": "DPRK3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 37518,
+      "name": "AIR KORYO TRADING CORPORATION",
+      "entity_type": "Entity",
+      "programs": "NPWMD",
+      "lists": "SDN List"
+    },
+    {
+      "id": 55716,
+      "name": "AIX COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13846",
+      "lists": "SDN List"
+    },
+    {
+      "id": 11273,
+      "name": "AKIRAPHOKIN, Thit",
+      "entity_type": "Individual",
+      "programs": "SDNTK",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54496,
+      "name": "AL-HAMMADI TRADING, SHIPPING, AND CLEARANCE CO., LTD.",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54500,
+      "name": "AL-HAMMADI, Nasr Hussein",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54501,
+      "name": "AL-NAHARI, Hisham Abdulwasea Hael Mohammed",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54495,
+      "name": "AL-NAHARI, Mohammed Abdulwasea Hael",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 47669,
+      "name": "AL-NASHIRI, Ibrahim",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50084,
+      "name": "AL-SHAHARE, Ahmed Khaled Yahya",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 49358,
+      "name": "AL-WAZIR, Ali Abd-Al-Wahhab Muhammad",
+      "entity_type": "Individual",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 50346,
+      "name": "ALICE COMPONENTS CO LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 51168,
+      "name": "ALIGN TRADING CO., LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 56910,
+      "name": "ALL WIN SHIPPING MANAGEMENT LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13846",
+      "lists": "SDN List"
+    },
+    {
+      "id": 49786,
+      "name": "ALLCHIPS LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 51166,
+      "name": "ALLPARTS TRADING CO., LTD.",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 55453,
+      "name": "ALPA HONG KONG LIMITED",
+      "entity_type": "Entity",
+      "programs": "IFSR,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 46741,
+      "name": "ALPHA TRADING INVESTMENTS LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 27531,
+      "name": "ALWAYS SMOOTH LTD",
+      "entity_type": "Entity",
+      "programs": "DPRK4",
+      "lists": "SDN List"
+    },
+    {
+      "id": 53330,
+      "name": "AM ASIA M6 LTD",
+      "entity_type": "Entity",
+      "programs": "SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 51909,
+      "name": "AMBRA LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024,UKRAINE-EO13662",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54613,
+      "name": "AMITO TRADING LIMITED",
+      "entity_type": "Entity",
+      "programs": "IFSR,SDGT",
+      "lists": "SDN List"
+    },
+    {
+      "id": 49451,
+      "name": "ANALOG TECHNOLOGY LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 32028,
+      "name": "ANHUI GREATWALL MILITARY INDUSTRY COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "CMIC-EO13959",
+      "lists": "Consolidated List,Non-SDN CMIC List"
+    },
+    {
+      "id": 52719,
+      "name": "ANHUI HONGSHENG INTERNATIONAL TRADE CO LTD",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024,UKRAINE-EO13662",
+      "lists": "SDN List"
+    },
+    {
+      "id": 48809,
+      "name": "ANYANG FORGING PRESS NUMERICAL CONTROL EQUIPMENT CO LTD",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 57527,
+      "name": "ARCHITECTONIC CORP LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 57679,
+      "name": "ARDEN ANGEL SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 54337,
+      "name": "ARES SHIPPING LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN-EO13902",
+      "lists": "SDN List"
+    },
+    {
+      "id": 56720,
+      "name": "ARIES GLOBAL INVESTMENT LTD",
+      "entity_type": "Entity",
+      "programs": "VENEZUELA-EO13850",
+      "lists": "SDN List"
+    }
+  ]
+}

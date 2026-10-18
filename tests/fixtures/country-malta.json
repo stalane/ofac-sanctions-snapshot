@@ -1,0 +1,392 @@
+{
+  "types": [
+    {
+      "entity_type": "Entity",
+      "count": 49
+    },
+    {
+      "entity_type": "Individual",
+      "count": 7
+    }
+  ],
+  "programs": [
+    {
+      "program": "LIBYA3",
+      "count": 28
+    },
+    {
+      "program": "IRAN",
+      "count": 15
+    },
+    {
+      "program": "RUSSIA-EO14024",
+      "count": 12
+    },
+    {
+      "program": "UKRAINE-EO13662",
+      "count": 1
+    },
+    {
+      "program": "VENEZUELA-EO13850",
+      "count": 1
+    }
+  ],
+  "lists": [
+    {
+      "list_name": "SDN List",
+      "count": 56
+    }
+  ],
+  "entities": [
+    {
+      "id": 23419,
+      "name": "ADJ TRADING LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 28297,
+      "name": "AL-WADI, Faysal",
+      "entity_type": "Individual",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 28300,
+      "name": "ALWEFAQ LTD",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23420,
+      "name": "ANDREA MARTINA LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23195,
+      "name": "ARAFA, Ahmed Ibrahim Hassan Ahmed",
+      "entity_type": "Individual",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15136,
+      "name": "ASAN SHIPPING ENTERPRISE LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35061,
+      "name": "BERNOVA, Evgeniya Vladimirovna",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25442,
+      "name": "BIIS MARITIME LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25481,
+      "name": "BUSHEHR SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23189,
+      "name": "DEBONO, Darren",
+      "entity_type": "Individual",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23193,
+      "name": "DEBONO, Gordon",
+      "entity_type": "Individual",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35065,
+      "name": "DJECO GROUP HOLDING LTD",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 29443,
+      "name": "ELEMENTO LIMITED",
+      "entity_type": "Entity",
+      "programs": "VENEZUELA-EO13850",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23406,
+      "name": "ELEVEN EIGHTY EIGHT LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23415,
+      "name": "GORGE LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23405,
+      "name": "HI-LOW PROPERTIES LTD.",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 38977,
+      "name": "I JET GLOBAL DMCC",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23206,
+      "name": "INOVEST LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25444,
+      "name": "ISI MARITIME LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25446,
+      "name": "ISIM ATR LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25447,
+      "name": "ISIM SININ LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25445,
+      "name": "ISIM TAJ MAHAL LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23411,
+      "name": "KB INVESTMENTS LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23208,
+      "name": "KB LINES LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25482,
+      "name": "KERMAN SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23414,
+      "name": "KRAKERN LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35060,
+      "name": "MALBERG LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23407,
+      "name": "MALTA DIRECTORIES LTD.",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 35066,
+      "name": "MALTARENT LTD",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25468,
+      "name": "MARANER HOLDINGS LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 25483,
+      "name": "MARBLE SHIPPING LTD",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23409,
+      "name": "MARIE DE LOURDES COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15733,
+      "name": "MONSOON SHIPPING LTD",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40939,
+      "name": "MORETTI, Walter",
+      "entity_type": "Individual",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23404,
+      "name": "MOTORCYCLE ART LTD.",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23408,
+      "name": "MR HANDYMAN LTD",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 28299,
+      "name": "MUSBAH, Nourddin Milood M",
+      "entity_type": "Individual",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23418,
+      "name": "OCEANO BLU TRADING LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23203,
+      "name": "PETROPLUS LTD",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23204,
+      "name": "PORTICELLO RESTAURANT",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 42745,
+      "name": "RB CONSULTING LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 42744,
+      "name": "RB HOLDING LIMITED",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23417,
+      "name": "S-CAPE LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23416,
+      "name": "S-CAPE YACHT CHARTER LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15137,
+      "name": "SARV SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 23412,
+      "name": "SEABRASS LIMITED",
+      "entity_type": "Entity",
+      "programs": "LIBYA3",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15138,
+      "name": "SEPID SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15139,
+      "name": "SIMA SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 15140,
+      "name": "SINA SHIPPING COMPANY LIMITED",
+      "entity_type": "Entity",
+      "programs": "IRAN",
+      "lists": "SDN List"
+    },
+    {
+      "id": 40954,
+      "name": "STRATTON INVESTMENT GROUP LTD",
+      "entity_type": "Entity",
+      "programs": "RUSSIA-EO14024",
+      "lists": "SDN List"
+    }
+  ]
+}
