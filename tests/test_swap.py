@@ -56,3 +56,21 @@ def test_failure_message_includes_stderr():
         ("wrangler", "d1", "list"), returncode=2, stdout="out", stderr="err",
         hint="")
     assert "out" in msg and "err" in msg
+
+
+def test_smoke_uses_a_fresh_url_per_attempt():
+    """The Worker's own edge cache stores a busted URL for s-maxage=60.
+
+    Building the Request once meant attempts 2..7 re-read the response cached by
+    attempt 1 — possibly from a POP still running the old code. Verified live:
+    attempt 2 came back `cf-cache-status: HIT age: 2`.
+    """
+    seen = []
+
+    def fake_fetch(url):
+        seen.append(url)
+        raise RuntimeError("no")  # never matches, force the full retry loop
+
+    swap_db.smoke({"entities": 1}, fetch=fake_fetch, attempts=3, sleep=lambda _: None)
+    assert len(seen) == 3
+    assert len(set(seen)) == 3, f"smoke reused a cached URL: {seen}"

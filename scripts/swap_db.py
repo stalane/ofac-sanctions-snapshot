@@ -66,12 +66,15 @@ COUNTS = ("entities", "countries", "programs", "lists")
 TABLES = {"country_detail": "cd", "country_totals": "ct",
           "program_counts": "pc", "list_counts": "lc"}
 
+BYTES_ALIAS = "cdb"
+
 _VERIFY_SQL = (
     "SELECT (SELECT value FROM meta WHERE key='entities') e,"
     "(SELECT value FROM meta WHERE key='countries') c,"
     "(SELECT value FROM meta WHERE key='programs') p,"
     "(SELECT value FROM meta WHERE key='lists') l,"
     + ",".join(f"(SELECT COUNT(*) FROM {t}) {a}" for t, a in TABLES.items())
+    + f",(SELECT SUM(LENGTH(payload)) FROM country_detail) {BYTES_ALIAS}"
 )
 
 
@@ -118,6 +121,7 @@ def verify_counts(db_name, want):
     # meta.value is TEXT, so the scalars arrive as strings; counts.json ints.
     keys = dict(zip(COUNTS, ("e", "c", "p", "l")))
     keys.update(TABLES)
+    keys["country_detail_bytes"] = BYTES_ALIAS
     bad = {t: (got[a], want[t]) for t, a in keys.items()
            if int(got[a]) != int(want[t])}
     if bad:
@@ -139,25 +143,33 @@ def deploy():
     print("worker deployed", flush=True)
 
 
-def smoke(want):
+def _get_json(url):
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "Mozilla/5.0 (reseed-smoke-check)"})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.load(r)
+
+
+def smoke(want, fetch=_get_json, attempts=12, sleep=time.sleep):
     """Poll the deployed worker until it serves the freshly seeded counts.
 
     Retries on a stale or wrong payload, not only on a transport error: an edge
     cache entry written before the deploy must not satisfy the check.
+
+    The URL is rebuilt every attempt. caches.default keys on the full URL, so a
+    busted URL is itself cached for the Worker's s-maxage (60s for /api/meta) —
+    reusing one URL would have attempts 2..7 read the response attempt 1 stored,
+    even if that came from a POP still running the old code.
     """
-    req = urllib.request.Request(
-        smoke_url(), headers={"User-Agent": "Mozilla/5.0 (reseed-smoke-check)"}
-    )
-    for attempt in range(12):
+    for attempt in range(attempts):
         try:
-            with urllib.request.urlopen(req, timeout=20) as r:
-                meta = json.load(r)
+            meta = fetch(smoke_url())
             if matches(meta, want):
                 return meta
             print(f"smoke mismatch (attempt {attempt + 1}): {meta}", flush=True)
         except Exception as e:  # noqa: BLE001 - transient edge propagation
             print("smoke retry:", e, flush=True)
-        time.sleep(10)
+        sleep(10)
     return None
 
 

@@ -107,6 +107,11 @@ def emit_seed(seed_dir):
         "country_totals": len(data["country_totals"]),
         "program_counts": len(data["program_counts"]),
         "list_counts": len(data["list_counts"]),
+        # Row counts alone pass for a country_detail full of garbage — every row
+        # present, every row wrong. The swap compares this against the database
+        # so a truncated or empty payload fails before anything is deployed.
+        "country_detail_bytes": sum(
+            len(r["payload"].encode("utf-8")) for r in data["country_detail"]),
     })
 
     os.makedirs(seed_dir, exist_ok=True)

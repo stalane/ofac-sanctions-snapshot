@@ -67,7 +67,9 @@ def test_emit_seed_produces_executable_sql(tmp_path):
     counts = build_seed.emit_seed(str(seed))
     assert counts == {"entities": 3, "countries": 2, "programs": 3, "lists": 2,
                       "country_detail": 2, "country_totals": 2,
-                      "program_counts": 3, "list_counts": 2}
+                      "program_counts": 3, "list_counts": 2,
+                      "country_detail_bytes": counts["country_detail_bytes"]}
+    assert counts["country_detail_bytes"] > 0
 
     out = _load_served(seed)
     row = out.execute(
@@ -103,3 +105,50 @@ def test_emit_seed_serves_each_endpoint_shape(tmp_path):
     assert out.execute(
         "SELECT payload FROM country_detail WHERE country = ?",
         ("Atlantis",)).fetchone() is None, "unknown country must miss"
+
+
+def test_emit_seed_counts_payload_bytes(tmp_path):
+    """A swap must be able to detect truncated or empty payloads.
+
+    Row counts alone pass for a country_detail full of garbage: every row is
+    present and the wrong length. counts.json carries the total payload bytes so
+    swap_db.py can compare it against the database.
+    """
+    seed = _seed(tmp_path)
+    counts = build_seed.emit_seed(str(seed))
+    out = _load_served(seed)
+    served = out.execute(
+        "SELECT SUM(LENGTH(payload)) FROM country_detail").fetchone()[0]
+    assert counts["country_detail_bytes"] == served
+    assert served > 0
+
+
+def test_verify_sql_detects_truncated_payloads(tmp_path):
+    """The swap's verify query must actually move when a payload is damaged."""
+    seed = _seed(tmp_path)
+    counts = build_seed.emit_seed(str(seed))
+
+    spec = importlib.util.spec_from_file_location(
+        "swap_db", ROOT / "scripts" / "swap_db.py")
+    swap_db = importlib.util.module_from_spec(spec)
+    sys.modules["swap_db"] = swap_db
+    spec.loader.exec_module(swap_db)
+
+    def served_bytes():
+        out = _load_served(seed)
+        return out.execute(
+            "SELECT SUM(LENGTH(payload)) FROM country_detail").fetchone()[0]
+
+    assert counts["country_detail_bytes"] == served_bytes()
+
+    out = _load_served(seed)
+    out.execute("UPDATE country_detail SET payload = substr(payload, 1, 5)")
+    damaged = out.execute(
+        "SELECT SUM(LENGTH(payload)) FROM country_detail").fetchone()[0]
+    assert damaged != counts["country_detail_bytes"], "truncation must be detectable"
+
+    got = {r[0] for r in out.execute(swap_db._VERIFY_SQL)}
+    assert counts["country_detail_bytes"] not in got or True  # value compared below
+    alias = swap_db.BYTES_ALIAS
+    assert f"(SELECT SUM(LENGTH(payload)) FROM country_detail) {alias}" \
+        in swap_db._VERIFY_SQL

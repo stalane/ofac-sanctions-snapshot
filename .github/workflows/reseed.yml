@@ -62,14 +62,26 @@ jobs:
           echo "stamp=$STAMP" >> "$GITHUB_OUTPUT"
 
       - name: Seed fresh database
+        id: seed
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           DB="ofac-${{ steps.stamp.outputs.stamp }}"
+          echo "db=$DB" >> "$GITHUB_OUTPUT"
           wrangler d1 delete "$DB" -y || true
           wrangler d1 create "$DB"
           wrangler d1 execute "$DB" --remote --file=seed/schema.sql
           wrangler d1 execute "$DB" --remote --file=seed/seed.sql
+
+      # swap_db.py prunes old databases, but only on a successful swap. Without
+      # this, a seed that fails partway leaves an orphan behind — and the
+      # account has a hard limit of 10 D1 databases on the free tier. Once that
+      # limit is hit `d1 create` fails, so the prune path can never run again.
+      - name: Remove a partially seeded database
+        if: failure() && steps.seed.outcome == 'failure'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: wrangler d1 delete "${{ steps.seed.outputs.db }}" -y || true
 
       - name: Verify, swap binding, deploy, record, prune
         env:
